@@ -1,3 +1,4 @@
+import { ArrowLeft } from 'lucide-react';
 import { VehicleRegistrationForm } from '../../../components/vehicle-registration-form';
 import { PageHeader, RegistrationCard, StatusBadge, EmptyState } from '../../../components/ui';
 import Link from 'next/link';
@@ -20,7 +21,7 @@ export default async function ParticipantDetail({params}:{params:Promise<{id:str
  const registered=eventRegistrations.find(e=>e.event.id===event?.id)?.rows??[];
  const otherEvents=eventRegistrations.filter(e=>e.event.id!==event?.id&&e.rows.length>0);
  return <StaffShell role={profile.app_role} name={profile.display_name}>
-  <Link href="/admin/participants">← Participants</Link>
+  <Link href="/admin/participants"><ArrowLeft className="action-icon" size={18} strokeWidth={1.75} aria-hidden="true"/> Participants</Link>
   <PageHeader title={participant.name} actions={<Link className="button" href={`/admin/check-in/${id}`}>Check in cars</Link>}/>
   <section className="card">
    <h2>Contact information</h2>

@@ -1,3 +1,5 @@
+import { ArrowLeft } from 'lucide-react';
+import { LionsLogo } from '../../../components/lions-logo';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { sessionClient } from '../../../../src/supabase/server';
@@ -29,7 +31,7 @@ export default async function JudgingDetail({params}:{params:Promise<{id:string}
  if(!car)notFound();
  const editable=!!role&&car.judging_open&&!car.historical&&!!car.car_number;
  const content=<>
-  {role==='admin'&&<Link href={`/admin/registrations/${id}`}>← Registration details</Link>}
+  {role==='admin'&&<Link href={`/admin/registrations/${id}`}><ArrowLeft className="action-icon" size={18} strokeWidth={1.75} aria-hidden="true"/> Registration details</Link>}
   <section className="registration-hero registration-summary"><div className="registration-title-row"><span className="car-number">{car.car_number?`#${car.car_number}`:'Pre-registered'}</span><h1>{car.vehicle_year} {car.vehicle_make} {car.vehicle_model}</h1></div><p className="qr-owner">{car.owner_name}<span>{[car.owner_city,car.owner_state].filter(Boolean).join(', ')}</span></p><p>{car.event_name} · {car.event_year}{car.historical?' · Historical snapshot':''}</p></section>
   <section className="card judging-progress"><h2>Judging progress</h2><Progress value={Number(car.progress)}/><p>{Math.round(Number(car.progress))}% judged</p><div className="section-completion">{Object.entries(sectionLabels).map(([key,title])=><div key={key}><span className={car.sections[key]?'section-done':'section-pending'} aria-hidden="true">{car.sections[key]?'✓':'○'}</span><span>{title}</span><small>{car.sections[key]?'Complete':'Pending'}</small></div>)}</div></section>
   {!role&&<p className="public-judge-signin"><Link className="button secondary" href={`/sign-in?next=${encodeURIComponent(`/judge/registrations/${id}`)}`}>Judge sign in</Link></p>}
@@ -38,5 +40,5 @@ export default async function JudgingDetail({params}:{params:Promise<{id:string}
   {role&&!editable&&score&&<section className="section-space"><h2>Recorded scores</h2>{Object.entries(SECTIONS).map(([section,maxima])=><details className="card section-card" key={section}><summary>{sectionLabels[section as keyof typeof SECTIONS]}</summary><div className="score-fields">{Object.entries(maxima).map(([field,max])=><p key={field}>{label(field)}: <strong>{score?.[field]??'Incomplete'}</strong> / {max}</p>)}</div></details>)}</section>}
   {(role==='admin'||editable)&&<><section className="card section-space"><h2>Lions Choice</h2><p>{votes} votes · separate from judging scores.</p>{editable&&<ActionForm action={voteLionsChoice} submit="Add one Lions Choice vote"><input type="hidden" name="registration" value={id}/></ActionForm>}</section><section className="section-space"><h2>Submission history</h2><HistoryTable history={history}/></section></>}
  </>;
- return role?<StaffShell role={role} name={profile!.display_name} eventOverride={{name:car.event_name,event_year:car.event_year,legacy_source_key:car.historical?'historical':null,judging_open:car.judging_open}}>{content}</StaffShell>:<><header className="site-header"><Link href="/" className="brand">Lions Club <span>Dream Car Show</span></Link></header><main className="container workspace public-car-page">{content}</main></>;
+ return role?<StaffShell role={role} name={profile!.display_name} eventOverride={{name:car.event_name,event_year:car.event_year,legacy_source_key:car.historical?'historical':null,judging_open:car.judging_open}}>{content}</StaffShell>:<><header className="site-header"><Link href="/" className="brand"><LionsLogo/><div>Lions Club <span>Dream Car Show</span></div></Link></header><main className="container workspace public-car-page">{content}</main></>;
 }
