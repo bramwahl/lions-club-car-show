@@ -1,5 +1,5 @@
 import type { Award } from '../domain/awards';
-export function repeatedAwardKeys(current:Award[],previous:Award[]){const keys=new Set(previous.map(r=>`${r.car_id}|${r.award}`));return current.filter(r=>keys.has(`${r.car_id}|${r.award}`)).map(r=>`${r.car_id}|${r.award}`);}
+export function repeatedAwardKeys(current:ReadonlyArray<Pick<Award,'car_id'|'award'>>,previous:readonly Award[]){const keys=new Set(previous.map(r=>`${r.car_id}|${r.award}`));return current.filter(r=>keys.has(`${r.car_id}|${r.award}`)).map(r=>`${r.car_id}|${r.award}`);}
 
 import {classification,phpNumericCompare,type AwardInput} from '../domain/awards';
 export type AwardTie={award:string;score:number|null;cars:AwardInput[]};

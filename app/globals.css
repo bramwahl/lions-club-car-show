@@ -408,3 +408,6 @@ select { background-image:url('/icons/chevron-down.svg'); }
 .award-provisional { display:block; margin-top:6px; color:#886900; font-weight:400; font-size:.8rem; }
 
 .award-card-empty { opacity:.5; }
+
+.tie-candidates .button { flex-wrap:wrap; justify-content:flex-start; }
+.tie-history-indicator { display:inline-flex; align-items:center; gap:6px; font-size:.8rem; color:#886900; background:#fff4c7; border-radius:6px; padding:4px 8px; }

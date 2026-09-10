@@ -32,3 +32,10 @@ test('tie review flags Best in Show first and respects higher-award exclusions w
  const corrected=[input('2',180),input('1',179),input('3',178)];assert.equal(awardTies(corrected,calculateAwards(corrected)).length,0);
  const classInputs=[input('1',180,1940),input('2',179),input('3',179)];assert.equal(awardTies(classInputs,calculateAwards(classInputs))[0].award,'Best in Class: 1950s');
 });
+
+test('prior winner indicator includes tied candidates even when they are not the displayed winner',()=>{
+ const past=[{car_id:'returning',award:'Best in Show'} as Award];
+ const candidates=[{car_id:'current',award:'Best in Show'},{car_id:'returning',award:'Best in Show'},{car_id:'returning',award:'Best in Class: 1950s'}];
+ assert.deepEqual(repeatedAwardKeys(candidates,past),['returning|Best in Show']);
+ assert.deepEqual(repeatedAwardKeys(candidates,[]),[]);
+});
