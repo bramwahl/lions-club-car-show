@@ -49,3 +49,20 @@ Authoritative evidence: the Phase 0 source manifest and active `lions-club-car-s
 Added `src/workflows/`, Admin workflow pages/actions, Judge registration pages/actions, shared workflow/form/print components, workflow tests and scripts, and this report directory. Updated navigation, sign-in return handling, styles, package dependencies/scripts and root AGENTS.md. Added migrations 006–009 for guarded workflow RPCs, atomic CSV retry metadata and complete minimal Judge history. Existing applied migrations were not rewritten. All normal app operations continue to use session JWTs and RLS/guarded functions; privileged keys stay server-only for Auth account creation.
 
 No deployment and no Gammonade changes were made during this workflow rebuild. The earlier Phase 0 repository-placement audit remains in its existing review package.
+
+## Local revision: September 10 workflow refinements (not released)
+
+Participant actions use Check-in / Pre-Register. Scores link vehicles to registration details, center score columns and retain only Quick Edit. Dashboard charts own their filtered registration shortcuts; standalone count cards are removed. PDF Summary retains transparent SVG branding and appends only a manually confirmed Lions Choice winner.
+
+Migration 012 is prepared and tested in isolated PGlite only; it is NOT applied to the shared Supabase database. It adds an Admin-only, event-scoped Lions Choice confirmation separate from votes/scores, with compare-and-set protection and historical-event guards. Without this migration, reads degrade to an explicit unavailable notice and confirmation buttons are disabled. No local storage pretends to persist a production winner.
+
+Award cards link to the full score editor (existing event-open/historical guards remain). Repeat-win hints compare persistent car identity and the exact award label (including Top 40 rank) to the previous calendar year's validated `qkby:2025` results. Playground and other unclassified test events are deliberately not a history source. Supporting later real events requires explicit test/real event classification before broadening this lookup. Category tie hints reflect existing engine asterisks after higher-award exclusions; they do not introduce tie-breakers or change any winners.
+
+Lions Choice candidate list is limited to registrations with at least one vote, per the follow-up review.
+
+### Shared database activation (user approved September 10)
+
+The user subsequently authorized applying migration 012 so confirmation can be tested from the local UI. Only migration 012 was pending and applied. Before/after fingerprints for events, participants, cars, registrations, scores, history and profiles were identical. The new table has RLS enabled, anonymous reads and direct authenticated inserts are denied, and the guarded staff RPC is executable. No winner was selected (zero confirmation rows). PostgREST schema reload was requested. Website changes remain local and unpushed; this supersedes the earlier unapplied status above. Do not edit migration 012 now that its checksum is recorded.
+
+### Award tie review (local)
+The Awards page now exposes Best in Show, class and category ties in award order, listing score-review links for all tied candidates. Best in Show ties mark downstream sections provisional. Detection follows the same eligible input and removes earlier winners; it does not add any ranking key or change the award engine. Corrections use existing audited Admin Quick Edit. If equally valid scores remain, the warning remains; no manual winner override is introduced. Imported results stay read-only. Regression tests cover top-award ties, class ties, higher-award exclusions and unchanged winner arrays.

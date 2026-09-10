@@ -1,0 +1,42 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {randomUUID,createHash} from 'node:crypto';
+import {database} from './helpers';
+test('public registration gates access, reuses cars, directly registers new people and retains legacy review',async()=>{
+ const {db,close}=await database();try{
+ const actor=randomUUID(),secret='a-test-only-portal-secret-of-sufficient-length',ip='a'.repeat(64);
+ await db.query('insert into auth.users(id) values($1)',[actor]);await db.query("insert into public.profiles(id,display_name,app_role,is_active) values($1,'Admin','admin',true)",[actor]);await db.query("select set_config('request.jwt.claim.sub',$1,false)",[actor]);
+ const e=(await db.query("insert into public.events(slug,name,event_year) values('portal','Portal',2026) returning id")).rows[0].id;
+ const p=(await db.query("insert into public.participants(name,email,phone) values('Returning Person','family@example.test', '317-555-0123') returning id")).rows[0].id;
+ const c=(await db.query("insert into public.cars(participant_id,year,make,model) values($1,1959,'Chevy','Corvette') returning id",[p])).rows[0].id;
+ await db.query('select public.admin_registration_portal($1,$2)',[e,createHash('sha256').update(secret).digest('hex')]);
+ await db.exec('set role anon');
+ const call=async(action:string,data:object={},key=secret)=>(await db.query('select public.registration_portal($1,$2,$3,$4) as result',[key,ip,action,JSON.stringify(data)])).rows[0].result as {error?:string;matched?:boolean;token?:string;participant:{name:string;city:string|null;state:string|null};cars:{id:string;year:number;make:string;model:string;registered:boolean}[];ok?:boolean;pending?:boolean};
+ assert.ok((await call('event',{},'wrong')).error);
+ await assert.rejects(db.query('select * from public.participants'));await assert.rejects(db.query('select * from public.registration_requests'));await assert.rejects(db.query('select public.admin_registration_requests()'));
+ assert.equal((await call('lookup',{name:'Returning Person',contact:'wrong@example.com'})).matched,false);
+ assert.equal((await call('lookup',{name:'Person',contact:'family@example.test'})).matched,true);
+ assert.equal((await call('lookup',{name:'Person',contact:'3175550123'})).matched,true);
+ assert.equal((await call('lookup',{name:'Person',contact:''})).matched,false);
+ assert.equal((await call('lookup',{name:'Pers',contact:'3175550123'})).matched,false);
+ const match=await call('lookup',{name:'Returning Person',contact:'3175550123'});
+ assert.equal(match.matched,true);assert.deepEqual(Object.keys(match.participant).sort(),['city','name','state']);assert.equal(match.participant.name,'Returning Person');assert.deepEqual(Object.keys(match).sort(),['cars','matched','participant','token']);assert.deepEqual(Object.keys(match.cars[0]).sort(),['id','make','model','registered','year']);
+ const payload={event:e,request:randomUUID(),token:match.token,selected:[c],cars:[],details:{}};
+ assert.equal((await call('submit',payload)).ok,true);assert.equal((await call('submit',payload)).ok,true);
+ assert.ok((await call('submit',{...payload,request:randomUUID(),event:randomUUID()})).error);
+ assert.ok((await call('submit',{...payload,request:randomUUID(),selected:[randomUUID()]})).error);
+ const registeredMatch=await call('lookup',{name:'Person',contact:'3175550123'});assert.equal(registeredMatch.cars[0].registered,true);
+ const mixedRequest=randomUUID();const mixed={...payload,request:mixedRequest,cars:[{year:'1980',make:'Mixed',model:'New car'}]};assert.equal((await call('submit',mixed)).pending,false);assert.equal((await call('submit',mixed)).ok,true);
+ const newRequest=randomUUID();assert.equal((await call('submit',{event:e,request:newRequest,token:null,selected:[],details:{name:'New Person',email:'family@example.test',city:'Town',state:'IN'},cars:[{year:'1900',make:'Test',model:'Car'}]})).pending,false);
+ assert.equal((await call('lookup',{name:'New Person',contact:'family@example.test'})).matched,true);
+ await db.exec('reset role');
+ let regs=(await db.query('select * from public.event_registrations')).rows;assert.equal(regs.length,3);assert.equal(regs[0].car_number,null);assert.equal(regs[0].status,'Registered');assert.equal(regs[0].payment_status,'Unpaid');assert.equal((await db.query('select * from public.scores')).rows.length,0);assert.equal((await db.query('select * from public.participants')).rows.length,2);
+ await db.query("update public.registration_requests set status='Pending',participant_id=null where id=$1",[newRequest]);
+ await db.exec('set role authenticated');await db.query('select public.admin_review_registration($1,$2,$3,false)',[newRequest,p,[c]]);
+ await assert.rejects(db.query('select public.admin_review_registration($1,$2,$3,false)',[newRequest,p,[c]]));
+ await db.exec('reset role');regs=(await db.query('select * from public.event_registrations')).rows;assert.equal(regs.length,3);assert.equal((await db.query('select * from public.cars')).rows.length,3);
+ await db.query("update public.profiles set app_role='judge' where id=$1",[actor]);await db.exec('set role authenticated');await assert.rejects(db.query('select public.admin_registration_requests()'));await db.exec('reset role');
+ await db.query("insert into public.participants(name,email,phone) values('Another Person','family@example.test','3175550123')");
+ await db.exec('set role anon');assert.equal((await call('lookup',{name:'Person',contact:'3175550123'})).matched,false);assert.equal((await call('lookup',{name:'Person',contact:'family@example.test'})).matched,false);for(let i=0;i<25;i++)await call('lookup',{name:'Unknown Person',contact:'5555555555'});assert.ok((await call('lookup',{name:'Returning Person',contact:'3175550123'})).error);
+ }finally{await close();}
+});
