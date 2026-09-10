@@ -1,0 +1,182 @@
+{
+  "phase": "1A",
+  "date": "2026-09-09",
+  "target": {
+    "server": {
+      "version": "PostgreSQL 17.6 on aarch64-unknown-linux-gnu, compiled by gcc (GCC) 15.2.0, 64-bit"
+    },
+    "events": [
+      {
+        "slug": "dream-car-show-2025",
+        "event_year": 2025,
+        "timezone_name": null,
+        "next_car_number": "257"
+      }
+    ],
+    "auth_users": "0",
+    "migrations": [
+      {
+        "name": "202609090001_foundation.sql",
+        "sha256": "97707399796f272b52286668fe08ad468584de9d38a0471e0c7e6e0656c5a833"
+      },
+      {
+        "name": "202609090002_integrity.sql",
+        "sha256": "a5bd41a03b44cc42053ca76f2407c0ff71750c15229994348731174197f10f9f"
+      }
+    ]
+  },
+  "reconciliation": {
+    "counts": {
+      "events": "1",
+      "participants": "239",
+      "cars": "256",
+      "event_registrations": "256",
+      "scores": "71",
+      "score_history": "486",
+      "profiles": "0"
+    },
+    "aggregates": {
+      "registered": "74",
+      "checked_in": "70",
+      "judged": "70",
+      "paid": "73",
+      "lions_choice_votes": "2",
+      "id_number_differences": "88"
+    },
+    "statuses": [
+      {
+        "status": "Archived",
+        "n": "182"
+      },
+      {
+        "status": "Registered",
+        "n": "4"
+      },
+      {
+        "status": "Judged",
+        "n": "70"
+      }
+    ],
+    "payments": [
+      {
+        "payment_status": "Unpaid",
+        "n": "183"
+      },
+      {
+        "payment_status": "Paid",
+        "n": "73"
+      }
+    ],
+    "history_sections": [
+      {
+        "section": "engine",
+        "n": "85"
+      },
+      {
+        "section": "body_paint",
+        "n": "74"
+      },
+      {
+        "section": "appearance",
+        "n": "77"
+      },
+      {
+        "section": "wheels_tires",
+        "n": "100"
+      },
+      {
+        "section": "interior",
+        "n": "74"
+      },
+      {
+        "section": "body_plating",
+        "n": "76"
+      }
+    ],
+    "duplicate_email_groups": "8",
+    "repeated_section_groups": "58",
+    "partial_archived": {
+      "legacy_car_id": "48",
+      "status": "Archived",
+      "progress_percentage": "29.41",
+      "total_score": null
+    },
+    "fixture": {
+      "rows": 51,
+      "numeric_values": 204,
+      "differences": 0
+    },
+    "rls_tables": 7
+  },
+  "native_reference": {
+    "native": "10.11.19-MariaDB;PHP 8.4.25",
+    "metadata": {
+      "sql_mode": "IGNORE_SPACE,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+      "collation": "utf8mb4_unicode_ci",
+      "time_zone": "SYSTEM",
+      "explain": [
+        {
+          "id": "1",
+          "select_type": "SIMPLE",
+          "table": "s",
+          "type": "ALL",
+          "possible_keys": "car_id",
+          "key": null,
+          "key_len": null,
+          "ref": null,
+          "rows": "71",
+          "Extra": "Using filesort"
+        },
+        {
+          "id": "1",
+          "select_type": "SIMPLE",
+          "table": "c",
+          "type": "eq_ref",
+          "possible_keys": "PRIMARY,participant_id",
+          "key": "PRIMARY",
+          "key_len": "8",
+          "ref": "car_show_reference.s.car_id",
+          "rows": "1",
+          "Extra": ""
+        },
+        {
+          "id": "1",
+          "select_type": "SIMPLE",
+          "table": "p",
+          "type": "eq_ref",
+          "possible_keys": "PRIMARY",
+          "key": "PRIMARY",
+          "key_len": "8",
+          "ref": "car_show_reference.c.participant_id",
+          "rows": "1",
+          "Extra": ""
+        }
+      ]
+    },
+    "fixture_rows": 51
+  },
+  "rerun": "verified-no-op",
+  "staging_tests": {
+    "vehicle_edit_2025_fixture": "unchanged; edits rolled back",
+    "concurrent_numbers": [
+      "1",
+      "2"
+    ],
+    "concurrent_votes": 20,
+    "voting_created_scores": 0,
+    "disposable_event_removed": true
+  },
+  "checks": {
+    "automated_tests": 13,
+    "lint": "passed",
+    "typecheck": "passed",
+    "production_build_webpack": "passed",
+    "production_build_turbopack": "environment denied internal port binding"
+  },
+  "limitations": [
+    "Historical 2025 WordPress/PHP runtime not supplied; reference used MariaDB 10.11.19 and PHP 8.4.25.",
+    "Historical submitted_at normalization remains unresolved.",
+    "Admin/judge/public policies, authenticated save services and UI/PDF workflow acceptance remain Phase 1B work requiring approval."
+  ],
+  "native_reference_database": "Stopped and removed after verification; original Downloads inputs unchanged."
+}

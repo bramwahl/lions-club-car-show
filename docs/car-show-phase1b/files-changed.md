@@ -1,0 +1,47 @@
+# Phase 1B file inventory
+
+Files added or changed in Phase 1B; existing Phase 0/1A uncommitted files are separate. All Phase 0 documents, original migrations and domain algorithms were preserved. Ignored .env.local also received operator credentials and bootstrap-password cleanup; its contents are not listed or committed.
+
+- `AGENTS.md`
+- `README.md`
+- `app/actions.ts`
+- `app/admin/page.tsx`
+- `app/admin/users/actions.ts`
+- `app/admin/users/forms.tsx`
+- `app/admin/users/page.tsx`
+- `app/components/staff-shell.tsx`
+- `app/globals.css`
+- `app/judge/page.tsx`
+- `app/layout.tsx`
+- `app/page.tsx`
+- `app/sign-in/form.tsx`
+- `app/sign-in/page.tsx`
+- `app/staff/page.tsx`
+- `docs/car-show-phase1b/README.md`
+- `docs/car-show-phase1b/completion-report.md`
+- `docs/car-show-phase1b/files-changed.md`
+- `docs/car-show-phase1b/http-test-report.json`
+- `docs/car-show-phase1b/live-test-report.json`
+- `docs/car-show-phase1b/native-report.json`
+- `docs/car-show-phase1b/numeric-test-report.json`
+- `docs/car-show-phase1b/preservation-report.json`
+- `docs/car-show-phase1b/regression-report.json`
+- `docs/car-show-phase1b/security-state.json`
+- `package-lock.json`
+- `package.json`
+- `proxy.ts`
+- `scripts/phase1b/bootstrap.ts`
+- `scripts/phase1b/http-tests.ts`
+- `scripts/phase1b/live-tests.ts`
+- `scripts/phase1b/numeric-test.ts`
+- `scripts/phase1b/validate.ts`
+- `src/auth/accounts.ts`
+- `src/auth/session.ts`
+- `src/supabase/admin.ts`
+- `src/supabase/public-config.ts`
+- `src/supabase/server.ts`
+- `supabase/migrations/202609090003_access.sql`
+- `supabase/migrations/202609090004_scoring_access.sql`
+- `supabase/migrations/202609090005_numeric_input_parity.sql`
+- `tests/access.test.ts`
+- `tests/helpers.ts`

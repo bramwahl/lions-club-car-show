@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "checks": [
+    "Public home succeeds; anonymous staff/Judge/Admin routes redirect",
+    "Judge pages succeed with Judge navigation; direct Admin URLs denied",
+    "Admin account page succeeds without returning password or privileged key",
+    "Forged account create/update Server Action requests reject anonymous and Judge sessions",
+    "Deactivated Judge existing session blocked at server route",
+    "Built client artifacts contain no privileged key, DB URI or bootstrap password"
+  ]
+}

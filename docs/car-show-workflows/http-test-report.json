@@ -1,0 +1,37 @@
+{
+  "checks": [
+    "HTTP Admin event, participant, two cars, unnumbered pre-registration, concurrent arrival numbering, idempotent reprint and payment",
+    "Anonymous QR shows owner and progress only; three atomic two-section Judge saves retain six history entries",
+    "Six HTTP Judge saves reach 100%; Admin blank/zero Quick Edit keeps Judged and audits; votes require no score; forged Judge Admin action denied",
+    "All workflow pages, printable local QR, awards endpoint and immutable registration snapshot"
+  ],
+  "preservation": {
+    "legacy": {
+      "counts": {
+        "events": 1,
+        "participants": 239,
+        "cars": 256,
+        "event_registrations": 256,
+        "scores": 71,
+        "score_history": 486
+      },
+      "fixture": {
+        "rows": 51,
+        "numeric_values": 204,
+        "differences": 0
+      },
+      "lions_choice_votes": 2,
+      "allocator": 257,
+      "exact_mapped_columns": true,
+      "all_generated_totals": true,
+      "rls_tables": 7,
+      "source_comparison": "Pinned literal source; native replay is a separate gate"
+    },
+    "application_awards_rpc": {
+      "rows": 51,
+      "numeric_values": 204,
+      "differences": 0
+    }
+  },
+  "temporary_data_removed": true
+}

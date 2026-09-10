@@ -1,0 +1,13 @@
+# Public QR and mobile judging
+
+The same registration QR address now serves both audiences. Anonymous visitors see the registration's vehicle snapshot, public car number, owner name/city/state, event context, percent judged and six completion checks. They do not receive numeric scores, email/phone/address/ZIP, notes, payment, judge identities, Auth UUIDs or history. A narrow exact-UUID RPC supplies this data; RLS remains enabled and anonymous raw table access remains denied. Unnumbered pre-registrations are not publicly visible.
+
+Active Judges/Admins see the judging sheet when a nonhistorical event is open. Select one or multiple sections, complete every item in those sections, and save. Zero remains valid; maxima and whole-number validation are enforced. Each selected section appends its own attributed record with profile display-name snapshot and server timestamp. Multiple-section saves are atomic: an invalid/incomplete section rolls back the entire batch. Separate intentional saves remain separate records; request UUIDs protect retries. Single-section RPC completeness now matches the same rule, superseding the older Phase 1B partial-section RPC allowance. Quick Edit still permits blanks and never automatically downgrades Judged.
+
+Completion marks reflect current section input completeness, not whether a section was ever submitted. This means a later Quick Edit that clears an item makes the public section Pending again. Progress still uses the unchanged 17-field calculation. History and numeric recorded scores remain available only to authorized staff, including read-only historical views.
+
+The supplied car was Checked-in with public number 2, but its event had `judging_open=false`. The page explains this and offers an Admin-only **Open judging for this event** action. Opening still closes judging for other events as before. This change does not automatically open an event or modify the historical import.
+
+Mobile scoring has 68px inputs, explicit Max badges, a single-column input layout on phones, section-selection controls, and a sticky Save action. Public progress is refreshed when the page is reloaded; no public live-polling service was introduced.
+
+Validation: 21 automated tests pass, including narrow anonymous projection, rejected anonymous writes, atomic invalid-batch rollback, complete-section validation, retry behavior, judge/time attribution and completion after Quick Edit. Live HTTP tests verify public privacy and three two-section submissions reaching 100% with six history records. Historical reconciliation retains all 51 award rows / 204 values with zero differences. Lint, TypeScript and production build pass. Original scoring/award engine and Phase 0 evidence remain unchanged. No deployment.

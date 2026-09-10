@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "runtime": "10.11.19-MariaDB;PHP 8.4.25",
+  "fixture_rows": 51,
+  "source_sha256": "0c529bfecd7a80c0b727a7ba8017dd28f048d46e590943008d3d218e4d50ab5f",
+  "metadata": {
+    "sql_mode": "IGNORE_SPACE,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+    "collation": "utf8mb4_unicode_ci",
+    "time_zone": "SYSTEM",
+    "explain": [
+      {
+        "id": "1",
+        "select_type": "SIMPLE",
+        "table": "s",
+        "type": "ALL",
+        "possible_keys": "car_id",
+        "key": null,
+        "key_len": null,
+        "ref": null,
+        "rows": "71",
+        "Extra": "Using filesort"
+      },
+      {
+        "id": "1",
+        "select_type": "SIMPLE",
+        "table": "c",
+        "type": "eq_ref",
+        "possible_keys": "PRIMARY,participant_id",
+        "key": "PRIMARY",
+        "key_len": "8",
+        "ref": "car_show_reference.s.car_id",
+        "rows": "1",
+        "Extra": ""
+      },
+      {
+        "id": "1",
+        "select_type": "SIMPLE",
+        "table": "p",
+        "type": "eq_ref",
+        "possible_keys": "PRIMARY",
+        "key": "PRIMARY",
+        "key_len": "8",
+        "ref": "car_show_reference.c.participant_id",
+        "rows": "1",
+        "Extra": ""
+      }
+    ]
+  }
+}

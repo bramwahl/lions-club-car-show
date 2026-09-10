@@ -1,0 +1,512 @@
+[
+  {
+    "award": "Best in Show",
+    "car_number": 240,
+    "car_number_display": "240",
+    "total_score": 169,
+    "overall_paint": 56,
+    "overall_interior": 36,
+    "overall_engine": 38,
+    "pdf_page": 1
+  },
+  {
+    "award": "Best in Class: Pre-1950",
+    "car_number": 241,
+    "car_number_display": "241",
+    "total_score": 157,
+    "overall_paint": 52,
+    "overall_interior": 36,
+    "overall_engine": 33,
+    "pdf_page": 1
+  },
+  {
+    "award": "Best in Class: 1950s",
+    "car_number": 106,
+    "car_number_display": "106",
+    "total_score": 168,
+    "overall_paint": 59,
+    "overall_interior": 35,
+    "overall_engine": 38,
+    "pdf_page": 1
+  },
+  {
+    "award": "Best in Class: 1960s",
+    "car_number": 242,
+    "car_number_display": "242",
+    "total_score": 159,
+    "overall_paint": 53,
+    "overall_interior": 33,
+    "overall_engine": 36,
+    "pdf_page": 1
+  },
+  {
+    "award": "Best in Class: 1970s",
+    "car_number": 183,
+    "car_number_display": "183",
+    "total_score": 158,
+    "overall_paint": 54,
+    "overall_interior": 34,
+    "overall_engine": 36,
+    "pdf_page": 1
+  },
+  {
+    "award": "Best in Class: 1980s",
+    "car_number": 70,
+    "car_number_display": "70",
+    "total_score": 154,
+    "overall_paint": 50,
+    "overall_interior": 35,
+    "overall_engine": 33,
+    "pdf_page": 1
+  },
+  {
+    "award": "Best in Class: 1990s",
+    "car_number": 248,
+    "car_number_display": "248",
+    "total_score": 133,
+    "overall_paint": 42,
+    "overall_interior": 28,
+    "overall_engine": 34,
+    "pdf_page": 1
+  },
+  {
+    "award": "Best in Class: Post-2000",
+    "car_number": 23,
+    "car_number_display": "23",
+    "total_score": 134,
+    "overall_paint": 38,
+    "overall_interior": 31,
+    "overall_engine": 36,
+    "pdf_page": 1
+  },
+  {
+    "award": "Best in Category: Paint",
+    "car_number": 236,
+    "car_number_display": "236",
+    "total_score": 151,
+    "overall_paint": 56,
+    "overall_interior": 25,
+    "overall_engine": 35,
+    "pdf_page": 1
+  },
+  {
+    "award": "Best in Category: Interior",
+    "car_number": 96,
+    "car_number_display": "96",
+    "total_score": 158,
+    "overall_paint": 54,
+    "overall_interior": 37,
+    "overall_engine": 32,
+    "pdf_page": 1
+  },
+  {
+    "award": "Best in Category: Engine",
+    "car_number": 193,
+    "car_number_display": "193*",
+    "total_score": 158,
+    "overall_paint": 54,
+    "overall_interior": 35,
+    "overall_engine": 37,
+    "pdf_page": 1
+  },
+  {
+    "award": "Top 40: 1",
+    "car_number": 64,
+    "car_number_display": "64",
+    "total_score": 163,
+    "overall_paint": 55,
+    "overall_interior": 35,
+    "overall_engine": 36,
+    "pdf_page": 1
+  },
+  {
+    "award": "Top 40: 2",
+    "car_number": 30,
+    "car_number_display": "30",
+    "total_score": 160,
+    "overall_paint": 55,
+    "overall_interior": 36,
+    "overall_engine": 34,
+    "pdf_page": 1
+  },
+  {
+    "award": "Top 40: 3",
+    "car_number": 127,
+    "car_number_display": "127",
+    "total_score": 157,
+    "overall_paint": 54,
+    "overall_interior": 36,
+    "overall_engine": 34,
+    "pdf_page": 2
+  },
+  {
+    "award": "Top 40: 4",
+    "car_number": 246,
+    "car_number_display": "246",
+    "total_score": 156,
+    "overall_paint": 51,
+    "overall_interior": 32,
+    "overall_engine": 37,
+    "pdf_page": 2
+  },
+  {
+    "award": "Top 40: 5",
+    "car_number": 243,
+    "car_number_display": "243",
+    "total_score": 156,
+    "overall_paint": 53,
+    "overall_interior": 35,
+    "overall_engine": 35,
+    "pdf_page": 2
+  },
+  {
+    "award": "Top 40: 6",
+    "car_number": 176,
+    "car_number_display": "176",
+    "total_score": 155,
+    "overall_paint": 53,
+    "overall_interior": 31,
+    "overall_engine": 37,
+    "pdf_page": 2
+  },
+  {
+    "award": "Top 40: 7",
+    "car_number": 11,
+    "car_number_display": "11",
+    "total_score": 155,
+    "overall_paint": 53,
+    "overall_interior": 32,
+    "overall_engine": 36,
+    "pdf_page": 2
+  },
+  {
+    "award": "Top 40: 8",
+    "car_number": 135,
+    "car_number_display": "135",
+    "total_score": 153,
+    "overall_paint": 53,
+    "overall_interior": 31,
+    "overall_engine": 36,
+    "pdf_page": 2
+  },
+  {
+    "award": "Top 40: 9",
+    "car_number": 227,
+    "car_number_display": "227",
+    "total_score": 152,
+    "overall_paint": 49,
+    "overall_interior": 32,
+    "overall_engine": 37,
+    "pdf_page": 2
+  },
+  {
+    "award": "Top 40: 10",
+    "car_number": 67,
+    "car_number_display": "67",
+    "total_score": 152,
+    "overall_paint": 51,
+    "overall_interior": 32,
+    "overall_engine": 35,
+    "pdf_page": 2
+  },
+  {
+    "award": "Top 40: 11",
+    "car_number": 186,
+    "car_number_display": "186",
+    "total_score": 152,
+    "overall_paint": 51,
+    "overall_interior": 34,
+    "overall_engine": 33,
+    "pdf_page": 2
+  },
+  {
+    "award": "Top 40: 12",
+    "car_number": 21,
+    "car_number_display": "21",
+    "total_score": 152,
+    "overall_paint": 51,
+    "overall_interior": 34,
+    "overall_engine": 31,
+    "pdf_page": 2
+  },
+  {
+    "award": "Top 40: 13",
+    "car_number": 235,
+    "car_number_display": "235",
+    "total_score": 151,
+    "overall_paint": 51,
+    "overall_interior": 30,
+    "overall_engine": 36,
+    "pdf_page": 2
+  },
+  {
+    "award": "Top 40: 14",
+    "car_number": 90,
+    "car_number_display": "90",
+    "total_score": 151,
+    "overall_paint": 49,
+    "overall_interior": 32,
+    "overall_engine": 35,
+    "pdf_page": 2
+  },
+  {
+    "award": "Top 40: 15",
+    "car_number": 231,
+    "car_number_display": "231",
+    "total_score": 151,
+    "overall_paint": 52,
+    "overall_interior": 31,
+    "overall_engine": 34,
+    "pdf_page": 2
+  },
+  {
+    "award": "Top 40: 16",
+    "car_number": 104,
+    "car_number_display": "104",
+    "total_score": 151,
+    "overall_paint": 54,
+    "overall_interior": 32,
+    "overall_engine": 33,
+    "pdf_page": 2
+  },
+  {
+    "award": "Top 40: 17",
+    "car_number": 221,
+    "car_number_display": "221",
+    "total_score": 149,
+    "overall_paint": 46,
+    "overall_interior": 33,
+    "overall_engine": 36,
+    "pdf_page": 2
+  },
+  {
+    "award": "Top 40: 18",
+    "car_number": 204,
+    "car_number_display": "204",
+    "total_score": 149,
+    "overall_paint": 53,
+    "overall_interior": 35,
+    "overall_engine": 30,
+    "pdf_page": 2
+  },
+  {
+    "award": "Top 40: 19",
+    "car_number": 105,
+    "car_number_display": "105",
+    "total_score": 148,
+    "overall_paint": 54,
+    "overall_interior": 29,
+    "overall_engine": 31,
+    "pdf_page": 2
+  },
+  {
+    "award": "Top 40: 20",
+    "car_number": 68,
+    "car_number_display": "68",
+    "total_score": 147,
+    "overall_paint": 51,
+    "overall_interior": 33,
+    "overall_engine": 30,
+    "pdf_page": 2
+  },
+  {
+    "award": "Top 40: 21",
+    "car_number": 228,
+    "car_number_display": "228",
+    "total_score": 146,
+    "overall_paint": 51,
+    "overall_interior": 30,
+    "overall_engine": 33,
+    "pdf_page": 2
+  },
+  {
+    "award": "Top 40: 22",
+    "car_number": 253,
+    "car_number_display": "253",
+    "total_score": 145,
+    "overall_paint": 53,
+    "overall_interior": 30,
+    "overall_engine": 33,
+    "pdf_page": 2
+  },
+  {
+    "award": "Top 40: 23",
+    "car_number": 222,
+    "car_number_display": "222",
+    "total_score": 144,
+    "overall_paint": 50,
+    "overall_interior": 30,
+    "overall_engine": 31,
+    "pdf_page": 2
+  },
+  {
+    "award": "Top 40: 24",
+    "car_number": 150,
+    "car_number_display": "150",
+    "total_score": 144,
+    "overall_paint": 51,
+    "overall_interior": 28,
+    "overall_engine": 31,
+    "pdf_page": 2
+  },
+  {
+    "award": "Top 40: 25",
+    "car_number": 237,
+    "car_number_display": "237",
+    "total_score": 139,
+    "overall_paint": 52,
+    "overall_interior": 30,
+    "overall_engine": 25,
+    "pdf_page": 3
+  },
+  {
+    "award": "Top 40: 26",
+    "car_number": 239,
+    "car_number_display": "239",
+    "total_score": 137,
+    "overall_paint": 44,
+    "overall_interior": 31,
+    "overall_engine": 31,
+    "pdf_page": 3
+  },
+  {
+    "award": "Top 40: 27",
+    "car_number": 226,
+    "car_number_display": "226",
+    "total_score": 137,
+    "overall_paint": 51,
+    "overall_interior": 31,
+    "overall_engine": 29,
+    "pdf_page": 3
+  },
+  {
+    "award": "Top 40: 28",
+    "car_number": 31,
+    "car_number_display": "31",
+    "total_score": 137,
+    "overall_paint": 52,
+    "overall_interior": 30,
+    "overall_engine": 24,
+    "pdf_page": 3
+  },
+  {
+    "award": "Top 40: 29",
+    "car_number": 146,
+    "car_number_display": "146",
+    "total_score": 136,
+    "overall_paint": 50,
+    "overall_interior": 29,
+    "overall_engine": 29,
+    "pdf_page": 3
+  },
+  {
+    "award": "Top 40: 30",
+    "car_number": 230,
+    "car_number_display": "230",
+    "total_score": 135,
+    "overall_paint": 51,
+    "overall_interior": 27,
+    "overall_engine": 28,
+    "pdf_page": 3
+  },
+  {
+    "award": "Top 40: 31",
+    "car_number": 238,
+    "car_number_display": "238",
+    "total_score": 133,
+    "overall_paint": 38,
+    "overall_interior": 34,
+    "overall_engine": 35,
+    "pdf_page": 3
+  },
+  {
+    "award": "Top 40: 32",
+    "car_number": 98,
+    "car_number_display": "98",
+    "total_score": 133,
+    "overall_paint": 50,
+    "overall_interior": 26,
+    "overall_engine": 30,
+    "pdf_page": 3
+  },
+  {
+    "award": "Top 40: 33",
+    "car_number": 131,
+    "car_number_display": "131",
+    "total_score": 133,
+    "overall_paint": 47,
+    "overall_interior": 26,
+    "overall_engine": 30,
+    "pdf_page": 3
+  },
+  {
+    "award": "Top 40: 34",
+    "car_number": 233,
+    "car_number_display": "233",
+    "total_score": 133,
+    "overall_paint": 44,
+    "overall_interior": 34,
+    "overall_engine": 25,
+    "pdf_page": 3
+  },
+  {
+    "award": "Top 40: 35",
+    "car_number": 234,
+    "car_number_display": "234",
+    "total_score": 132,
+    "overall_paint": 48,
+    "overall_interior": 25,
+    "overall_engine": 34,
+    "pdf_page": 3
+  },
+  {
+    "award": "Top 40: 36",
+    "car_number": 250,
+    "car_number_display": "250",
+    "total_score": 132,
+    "overall_paint": 45,
+    "overall_interior": 24,
+    "overall_engine": 34,
+    "pdf_page": 3
+  },
+  {
+    "award": "Top 40: 37",
+    "car_number": 100,
+    "car_number_display": "100",
+    "total_score": 130,
+    "overall_paint": 39,
+    "overall_interior": 31,
+    "overall_engine": 31,
+    "pdf_page": 3
+  },
+  {
+    "award": "Top 40: 38",
+    "car_number": 245,
+    "car_number_display": "245",
+    "total_score": 129,
+    "overall_paint": 52,
+    "overall_interior": 26,
+    "overall_engine": 22,
+    "pdf_page": 3
+  },
+  {
+    "award": "Top 40: 39",
+    "car_number": 112,
+    "car_number_display": "112",
+    "total_score": 127,
+    "overall_paint": 27,
+    "overall_interior": 30,
+    "overall_engine": 37,
+    "pdf_page": 3
+  },
+  {
+    "award": "Top 40: 40",
+    "car_number": 252,
+    "car_number_display": "252",
+    "total_score": 125,
+    "overall_paint": 34,
+    "overall_interior": 32,
+    "overall_engine": 31,
+    "pdf_page": 3
+  }
+]

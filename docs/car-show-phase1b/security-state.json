@@ -1,0 +1,106 @@
+{
+  "profiles": [
+    {
+      "app_role": "admin",
+      "is_active": true,
+      "count": 1
+    }
+  ],
+  "auth": {
+    "accounts": 1,
+    "confirmed": 1,
+    "confirmation_emails_requested": 0
+  },
+  "policies": [
+    {
+      "tablename": "cars",
+      "policyname": "cars_admin_delete",
+      "cmd": "DELETE"
+    },
+    {
+      "tablename": "cars",
+      "policyname": "cars_admin_insert",
+      "cmd": "INSERT"
+    },
+    {
+      "tablename": "cars",
+      "policyname": "cars_admin_read",
+      "cmd": "SELECT"
+    },
+    {
+      "tablename": "cars",
+      "policyname": "cars_admin_update",
+      "cmd": "UPDATE"
+    },
+    {
+      "tablename": "event_registrations",
+      "policyname": "registrations_admin_read",
+      "cmd": "SELECT"
+    },
+    {
+      "tablename": "event_registrations",
+      "policyname": "registrations_admin_update",
+      "cmd": "UPDATE"
+    },
+    {
+      "tablename": "events",
+      "policyname": "events_admin_delete",
+      "cmd": "DELETE"
+    },
+    {
+      "tablename": "events",
+      "policyname": "events_admin_insert",
+      "cmd": "INSERT"
+    },
+    {
+      "tablename": "events",
+      "policyname": "events_admin_read",
+      "cmd": "SELECT"
+    },
+    {
+      "tablename": "events",
+      "policyname": "events_admin_update",
+      "cmd": "UPDATE"
+    },
+    {
+      "tablename": "participants",
+      "policyname": "participants_admin_delete",
+      "cmd": "DELETE"
+    },
+    {
+      "tablename": "participants",
+      "policyname": "participants_admin_insert",
+      "cmd": "INSERT"
+    },
+    {
+      "tablename": "participants",
+      "policyname": "participants_admin_read",
+      "cmd": "SELECT"
+    },
+    {
+      "tablename": "participants",
+      "policyname": "participants_admin_update",
+      "cmd": "UPDATE"
+    },
+    {
+      "tablename": "profiles",
+      "policyname": "profiles_self_or_admin_read",
+      "cmd": "SELECT"
+    },
+    {
+      "tablename": "score_history",
+      "policyname": "history_admin_read",
+      "cmd": "SELECT"
+    },
+    {
+      "tablename": "scores",
+      "policyname": "scores_admin_read",
+      "cmd": "SELECT"
+    }
+  ],
+  "history_trigger": [
+    {
+      "tgenabled": "O"
+    }
+  ]
+}

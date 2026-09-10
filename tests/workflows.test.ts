@@ -1,0 +1,52 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { randomUUID } from 'node:crypto';
+import { database } from './helpers';
+import { statistics,safeReturn } from '../src/workflows/types';
+test('event reuse is atomic, numbered per event, fresh, owner checked and idempotent',async()=>{const {db,close}=await database();try{
+ const actor=randomUUID();await db.query('INSERT INTO auth.users(id) VALUES ($1)',[actor]);await db.query("INSERT INTO public.profiles(id,display_name,app_role,is_active) VALUES ($1,'Test Admin','admin',true)",[actor]);await db.query("SELECT set_config('request.jwt.claim.sub',$1,false)",[actor]);
+ const participant=(await db.query("SELECT public.admin_add_participant('{\"name\":\"Test entrant\",\"email\":\"test@example.invalid\"}') AS id")).rows[0].id;
+ await assert.rejects(db.query("SELECT public.admin_add_participant('{\"name\":\"Another\",\"email\":\"TEST@example.invalid\"}')"),/already exists/);
+ const cars=[];for(let i=0;i<2;i++)cars.push((await db.query("INSERT INTO public.cars(participant_id,year,make,model) VALUES ($1,1955,'Test','Car') RETURNING id",[participant])).rows[0].id);
+ const events=[];for(let i=0;i<2;i++)events.push((await db.query("INSERT INTO public.events(slug,name,event_year) VALUES ($1,'Test',2026) RETURNING id",[`event-${i}`])).rows[0].id);
+ await assert.rejects(db.query('SELECT public.admin_register_cars($1,$2,$3,true)',[events[0],participant,[cars[0],randomUUID()]]),/belong/);assert.equal((await db.query('SELECT count(*)::int as n FROM public.event_registrations')).rows[0].n,0);
+ await db.query('SELECT public.admin_register_cars($1,$2,$3,true)',[events[0],participant,cars]);
+ await db.query("UPDATE public.event_registrations SET status='Judged',payment_status='Paid' WHERE event_id=$1",[events[0]]);
+ await db.query('SELECT public.admin_register_cars($1,$2,$3,true)',[events[0],participant,cars]);
+ assert.equal((await db.query('SELECT next_car_number::text as n FROM public.events WHERE id=$1',[events[0]])).rows[0].n,'3');
+ await db.query('SELECT public.admin_register_cars($1,$2,$3,false)',[events[1],participant,cars]);
+ const fresh=(await db.query('SELECT * FROM public.event_registrations WHERE event_id=$1 ORDER BY car_number',[events[1]])).rows;assert.deepEqual(fresh.map(r=>r.car_number),[null,null]);assert.equal((await db.query('SELECT next_car_number::text as n FROM public.events WHERE id=$1',[events[1]])).rows[0].n,'1');assert.ok(fresh.every(r=>r.status==='Registered'&&r.payment_status==='Unpaid'&&r.classification==='1950s'));assert.equal((await db.query('SELECT count(*)::int as n FROM public.scores')).rows[0].n,0);
+ await db.query('SELECT public.admin_open_judging($1,true)',[events[0]]);await db.query('SELECT public.admin_open_judging($1,true)',[events[1]]);assert.equal((await db.query('SELECT count(*)::int as n FROM public.events WHERE judging_open')).rows[0].n,1);
+ await db.exec('SET ROLE authenticated');assert.equal((await db.query("SELECT jsonb_array_length(public.admin_directory('participants')) as n")).rows[0].n,1);await db.exec('RESET ROLE');await db.query("UPDATE public.profiles SET app_role='judge' WHERE id=$1",[actor]);await db.exec('SET ROLE authenticated');await assert.rejects(db.query("SELECT public.admin_directory('participants')"),/Access denied/);await assert.rejects(db.query('SELECT public.admin_register_cars($1,$2,$3,false)',[events[1],participant,cars]),/Access denied/);
+ }finally{await close();}});
+test('dashboard preserves legacy status/paid counting and redirects stay local',()=>{const stats=statistics([{status:'Archived',payment_status:'Paid'},{status:'Registered',payment_status:'Unpaid'},{status:'Judged',payment_status:'Paid'},{status:null,payment_status:'Unpaid'},{status:'',payment_status:'Unpaid'}]);assert.deepEqual([stats.registered,stats.checked,stats.judged,stats.paid],[3,2,1,2]);assert.equal(safeReturn('//evil.invalid'),'/staff');assert.equal(safeReturn('/judge/registrations/123'),'/judge/registrations/123');});
+test('CSV preserves duplicates and Archived defaults, rejects partial batches and deduplicates retries',async()=>{const {db,close}=await database();try{
+ const actor=randomUUID();await db.query('INSERT INTO auth.users(id) VALUES ($1)',[actor]);await db.query("INSERT INTO public.profiles(id,display_name,app_role,is_active) VALUES ($1,'CSV Admin','admin',true)",[actor]);await db.query("SELECT set_config('request.jwt.claim.sub',$1,false)",[actor]);
+ const event=(await db.query("INSERT INTO public.events(slug,name,event_year) VALUES ('csv','CSV',2026) RETURNING id")).rows[0].id;const row={name:'Test',email:'duplicate@example.invalid',year:1955,make:'Test',model:'Car'};const request=randomUUID();
+ await assert.rejects(db.query('SELECT public.admin_import_entrants($1,$2,$3)',[event,[row,{...row,year:0}],randomUUID()]),/Invalid/);assert.equal((await db.query('SELECT count(*)::int as n FROM public.participants')).rows[0].n,0);
+ for(let i=0;i<2;i++)assert.equal((await db.query('SELECT public.admin_import_entrants($1,$2,$3) as n',[event,[row,row],request])).rows[0].n,2);
+ assert.equal((await db.query('SELECT count(*)::int as n FROM public.participants')).rows[0].n,2);assert.ok((await db.query('SELECT * FROM public.event_registrations')).rows.every(r=>r.status==='Archived'&&r.payment_status==='Unpaid'));assert.equal((await db.query('SELECT count(*)::int as n FROM public.scores')).rows[0].n,0);
+ await assert.rejects(db.query('SELECT public.admin_import_entrants($1,$2,$3)',[event,[row],request]),/already used/);
+ const regs=(await db.query('SELECT id FROM public.event_registrations')).rows.map(r=>r.id);await assert.rejects(db.query('SELECT public.admin_check_in($1,$2)',[event,[...regs,randomUUID()]]),/another event/);assert.equal((await db.query("SELECT count(*)::int as n FROM public.event_registrations WHERE status='Checked-in'")).rows[0].n,0);
+ await db.query('SELECT public.admin_check_in($1,$2)',[event,regs]);await db.query('SELECT public.admin_open_judging($1,true)',[event]);const detail=(await db.query('SELECT public.judge_registration($1) as r',[regs[0]])).rows[0].r as Record<string,unknown>;assert.equal(detail.car_number,'1');assert.ok(!('participant' in detail));assert.ok(!('email' in detail));
+ }finally{await close();}});
+test('CSV parses quoted names/newlines, preserves ZIP and rejects malformed input',async()=>{const {parseEntrantCsv,CSV_COLUMNS}=await import('../src/workflows/csv');const csv=CSV_COLUMNS.join(',')+'\n"Doe, Test",test@example.invalid,555,Street,City,IN,00100,1955,Test,Car,"line 1\nline 2"';const rows=parseEntrantCsv(csv);assert.equal(rows[0].name,'Doe, Test');assert.equal(rows[0].notes,'line 1\nline 2');assert.equal(rows[0].zip,'00100');assert.throws(()=>parseEntrantCsv(csv+'"'),/quote/);});
+test('arrival numbering follows check-in order, preserves advance payment, retries and rejects renumbering',async()=>{const {db,close}=await database();try{
+ const actor=randomUUID();await db.query('INSERT INTO auth.users(id) VALUES ($1)',[actor]);await db.query("INSERT INTO public.profiles(id,display_name,app_role,is_active) VALUES ($1,'Arrival Admin','admin',true)",[actor]);await db.query("SELECT set_config('request.jwt.claim.sub',$1,false)",[actor]);
+ const person=(await db.query("SELECT public.admin_add_participant('{\"name\":\"Arrival\",\"email\":\"arrival@example.invalid\"}') AS id")).rows[0].id;
+ const event=(await db.query("INSERT INTO public.events(slug,name,event_year) VALUES ('arrivals','Arrivals',2027) RETURNING id")).rows[0].id;
+ const cars=[];for(let i=0;i<3;i++)cars.push((await db.query("INSERT INTO public.cars(participant_id,year,make,model) VALUES ($1,1959,'Test','Car') RETURNING id",[person])).rows[0].id);
+ await db.query('SELECT public.admin_register_cars($1,$2,$3,false)',[event,person,cars.slice(0,2)]);
+ assert.ok((await db.query('SELECT car_number FROM public.event_registrations')).rows.every(r=>r.car_number===null));
+ await db.query("SELECT public.admin_preregister($1,$2,$3,'Paid')",[event,person,[cars[0]]]);assert.equal((await db.query('SELECT car_number FROM public.event_registrations WHERE car_id=$1',[cars[0]])).rows[0].car_number,null);
+ // Second pre-registrant arrives first; repeat arrival must not consume another number.
+ for(let i=0;i<2;i++)await db.query("SELECT public.admin_arrival($1,$2,$3,'Paid')",[event,person,cars[1]]);
+ await db.query("SELECT public.admin_arrival($1,$2,$3,'Unpaid')",[event,person,cars[2]]);
+ await db.query("SELECT public.admin_arrival($1,$2,$3,'Paid')",[event,person,cars[0]]);
+ const rows=(await db.query('SELECT car_id,car_number::text as number,payment_status,status FROM public.event_registrations ORDER BY car_number')).rows;
+ assert.deepEqual(rows.map(r=>r.car_id),[cars[1],cars[2],cars[0]]);assert.deepEqual(rows.map(r=>r.number),['1','2','3']);assert.deepEqual(rows.map(r=>r.payment_status),['Paid','Unpaid','Paid']);assert.ok(rows.every(r=>r.status==='Checked-in'));
+ await assert.rejects(db.query('UPDATE public.event_registrations SET car_number=99 WHERE car_id=$1',[cars[0]]),/cannot be edited/);
+ assert.equal((await db.query('SELECT count(*)::int AS n FROM public.scores')).rows[0].n,0);
+ await db.exec('SET ROLE authenticated');await db.query("SELECT public.admin_arrival($1,$2,$3,'Paid')",[event,person,cars[0]]);await db.exec('RESET ROLE');
+ await db.query("UPDATE public.profiles SET app_role='judge' WHERE id=$1",[actor]);await assert.rejects(db.query("SELECT public.admin_arrival($1,$2,$3,'Paid')",[event,person,cars[0]]),/Access denied/);
+ }finally{await close();}});

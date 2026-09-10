@@ -1,0 +1,439 @@
+{
+  "counts": {
+    "qkby_lionsclub_cars": 256,
+    "qkby_lionsclub_participants": 239,
+    "qkby_lionsclub_scores": 71,
+    "qkby_lionsclub_score_updates": 486,
+    "qkby_users": 10
+  },
+  "statuses": {
+    "Judged": 70,
+    "Archived": 182,
+    "Registered": 4
+  },
+  "paid": {
+    "Paid": 73,
+    "Unpaid": 183
+  },
+  "id_number_differences": [
+    {
+      "id": 173,
+      "car_number": 169
+    },
+    {
+      "id": 174,
+      "car_number": 170
+    },
+    {
+      "id": 175,
+      "car_number": 171
+    },
+    {
+      "id": 176,
+      "car_number": 172
+    },
+    {
+      "id": 177,
+      "car_number": 173
+    },
+    {
+      "id": 178,
+      "car_number": 174
+    },
+    {
+      "id": 179,
+      "car_number": 175
+    },
+    {
+      "id": 180,
+      "car_number": 176
+    },
+    {
+      "id": 181,
+      "car_number": 177
+    },
+    {
+      "id": 182,
+      "car_number": 178
+    },
+    {
+      "id": 183,
+      "car_number": 179
+    },
+    {
+      "id": 184,
+      "car_number": 180
+    },
+    {
+      "id": 185,
+      "car_number": 181
+    },
+    {
+      "id": 186,
+      "car_number": 182
+    },
+    {
+      "id": 187,
+      "car_number": 183
+    },
+    {
+      "id": 188,
+      "car_number": 184
+    },
+    {
+      "id": 189,
+      "car_number": 185
+    },
+    {
+      "id": 190,
+      "car_number": 186
+    },
+    {
+      "id": 191,
+      "car_number": 187
+    },
+    {
+      "id": 192,
+      "car_number": 188
+    },
+    {
+      "id": 193,
+      "car_number": 189
+    },
+    {
+      "id": 194,
+      "car_number": 190
+    },
+    {
+      "id": 195,
+      "car_number": 191
+    },
+    {
+      "id": 196,
+      "car_number": 192
+    },
+    {
+      "id": 197,
+      "car_number": 193
+    },
+    {
+      "id": 198,
+      "car_number": 194
+    },
+    {
+      "id": 199,
+      "car_number": 195
+    },
+    {
+      "id": 200,
+      "car_number": 196
+    },
+    {
+      "id": 201,
+      "car_number": 197
+    },
+    {
+      "id": 202,
+      "car_number": 198
+    },
+    {
+      "id": 203,
+      "car_number": 199
+    },
+    {
+      "id": 204,
+      "car_number": 200
+    },
+    {
+      "id": 205,
+      "car_number": 201
+    },
+    {
+      "id": 206,
+      "car_number": 202
+    },
+    {
+      "id": 207,
+      "car_number": 203
+    },
+    {
+      "id": 208,
+      "car_number": 204
+    },
+    {
+      "id": 209,
+      "car_number": 205
+    },
+    {
+      "id": 210,
+      "car_number": 206
+    },
+    {
+      "id": 211,
+      "car_number": 207
+    },
+    {
+      "id": 212,
+      "car_number": 208
+    },
+    {
+      "id": 213,
+      "car_number": 209
+    },
+    {
+      "id": 214,
+      "car_number": 210
+    },
+    {
+      "id": 215,
+      "car_number": 211
+    },
+    {
+      "id": 216,
+      "car_number": 212
+    },
+    {
+      "id": 217,
+      "car_number": 213
+    },
+    {
+      "id": 218,
+      "car_number": 214
+    },
+    {
+      "id": 219,
+      "car_number": 215
+    },
+    {
+      "id": 220,
+      "car_number": 216
+    },
+    {
+      "id": 221,
+      "car_number": 217
+    },
+    {
+      "id": 222,
+      "car_number": 218
+    },
+    {
+      "id": 223,
+      "car_number": 219
+    },
+    {
+      "id": 224,
+      "car_number": 220
+    },
+    {
+      "id": 225,
+      "car_number": 221
+    },
+    {
+      "id": 226,
+      "car_number": 222
+    },
+    {
+      "id": 227,
+      "car_number": 223
+    },
+    {
+      "id": 228,
+      "car_number": 224
+    },
+    {
+      "id": 229,
+      "car_number": 225
+    },
+    {
+      "id": 230,
+      "car_number": 226
+    },
+    {
+      "id": 231,
+      "car_number": 227
+    },
+    {
+      "id": 232,
+      "car_number": 228
+    },
+    {
+      "id": 233,
+      "car_number": 229
+    },
+    {
+      "id": 234,
+      "car_number": 230
+    },
+    {
+      "id": 235,
+      "car_number": 231
+    },
+    {
+      "id": 236,
+      "car_number": 232
+    },
+    {
+      "id": 237,
+      "car_number": 233
+    },
+    {
+      "id": 238,
+      "car_number": 234
+    },
+    {
+      "id": 239,
+      "car_number": 235
+    },
+    {
+      "id": 240,
+      "car_number": 236
+    },
+    {
+      "id": 241,
+      "car_number": 237
+    },
+    {
+      "id": 242,
+      "car_number": 238
+    },
+    {
+      "id": 243,
+      "car_number": 239
+    },
+    {
+      "id": 244,
+      "car_number": 240
+    },
+    {
+      "id": 245,
+      "car_number": 241
+    },
+    {
+      "id": 246,
+      "car_number": 242
+    },
+    {
+      "id": 247,
+      "car_number": 243
+    },
+    {
+      "id": 248,
+      "car_number": 244
+    },
+    {
+      "id": 249,
+      "car_number": 245
+    },
+    {
+      "id": 250,
+      "car_number": 246
+    },
+    {
+      "id": 251,
+      "car_number": 247
+    },
+    {
+      "id": 252,
+      "car_number": 248
+    },
+    {
+      "id": 253,
+      "car_number": 249
+    },
+    {
+      "id": 254,
+      "car_number": 250
+    },
+    {
+      "id": 255,
+      "car_number": 251
+    },
+    {
+      "id": 256,
+      "car_number": 252
+    },
+    {
+      "id": 257,
+      "car_number": 253
+    },
+    {
+      "id": 258,
+      "car_number": 254
+    },
+    {
+      "id": 259,
+      "car_number": 255
+    },
+    {
+      "id": 260,
+      "car_number": 256
+    }
+  ],
+  "duplicate_car_numbers": {},
+  "duplicate_score_car_ids": {},
+  "duplicate_email_groups": 8,
+  "participants_with_multiple_cars": 14,
+  "orphan_cars": [],
+  "orphan_scores": [],
+  "orphan_updates": [],
+  "orphan_judges": [],
+  "history_sections": {
+    "wheels_tires": 100,
+    "appearance": 77,
+    "body_paint": 74,
+    "body_plating": 76,
+    "interior": 74,
+    "engine": 85
+  },
+  "redundant_history_car_ids": {
+    "0": 486
+  },
+  "redundant_history_sections": {
+    "": 486
+  },
+  "history_timestamp_deltas_hours": {
+    "7.0": 484,
+    "6.999722222222222": 2
+  },
+  "history_repeated_section_groups": 58,
+  "invalid_scores": [],
+  "progress_mismatches": [],
+  "null_total_scores": 1,
+  "zero_score_fields": 74,
+  "lions_choice_total": 2,
+  "scored_statuses": {
+    "Judged": 70,
+    "Archived": 1
+  },
+  "year_range": [
+    "1917",
+    "2023"
+  ],
+  "classification_mismatches": [
+    {
+      "legacy_car_id": 177,
+      "stored": "Pre-1950",
+      "year_derived": "1970s"
+    },
+    {
+      "legacy_car_id": 195,
+      "stored": "Pre-1950",
+      "year_derived": "1950s"
+    },
+    {
+      "legacy_car_id": 204,
+      "stored": "Pre-1950",
+      "year_derived": "1970s"
+    },
+    {
+      "legacy_car_id": 224,
+      "stored": "Pre-1950",
+      "year_derived": "Post-2000"
+    }
+  ],
+  "pdf_numeric_differences": [],
+  "diagnostic_stable_replay_differences": [],
+  "pdf_rows_checked": 51,
+  "replay_assumption": "Source score INSERT order; Python stable sorts; not native MariaDB/PHP/Postgres execution or a production tie rule.",
+  "identity_fixture_differences": []
+}

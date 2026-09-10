@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "engine": "target Supabase Postgres",
+  "role": "authenticated with existing Admin subject",
+  "accepted": [
+    "integral JSON 1.0",
+    "zero-padded digits",
+    "zero",
+    "blank as NULL"
+  ],
+  "rejected": [
+    "fraction",
+    "decimal string",
+    "negative",
+    "above maximum"
+  ],
+  "all_test_writes_rolled_back": true
+}

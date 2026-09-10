@@ -1,0 +1,22 @@
+{
+  "all_unchanged": true,
+  "sha256": {
+    "supabase/migrations/202609090001_foundation.sql": "97707399796f272b52286668fe08ad468584de9d38a0471e0c7e6e0656c5a833",
+    "supabase/migrations/202609090002_integrity.sql": "a5bd41a03b44cc42053ca76f2407c0ff71750c15229994348731174197f10f9f",
+    "src/domain/awards.ts": "5dd27544f42eca4aee55fc4c0fec2d7f290d763f2555e932998c0686c8fdda82",
+    "src/domain/scoring.ts": "d2a3cab72b8542511c31b256881d69864558d9df20ced644bee71576e36f6aa3",
+    "docs/car-show-phase0/source-manifest.json": "3b65a498042c7f09f0600d934e5877c4285dadeea4fe40ee6b8ef6fe62f7954e",
+    "docs/car-show-phase0/awards-2025-identities.csv": "c826194ba93a969bb0537fa94bd71895ff476040a3d1b16a0934d314ee49b4a8",
+    "docs/car-show-phase0/schema-proposal.md": "09dca93e34a693df9045ffaf70ba7fcbc894902bc490ee68d0ccd722d8b69384",
+    "docs/car-show-phase0/migration-plan.md": "b33979d3d9df78ab7b521d65e413fff3095c4dbcdc34d3b98b691ee177d0ec2b",
+    "docs/car-show-phase0/awards-2025.fixture.json": "7de7f81efcb710e132cf581693ae88f15ad67aeec8de1310d7d4ad2c0cf1e8dd",
+    "docs/car-show-phase0/regression-plan.md": "30c5dc3e0b439f4bb4eaa3aea753f923673f3d568e26d119ae9f1dd97f149727",
+    "docs/car-show-phase0/data-audit.json": "aec5da35736991f9f49fc7cf3c25e4be2f4c183377ca80751defb209f8a9b211",
+    "docs/car-show-phase0/compatibility-report.md": "6966c0c5d1ec4b932c74ba04017ae449f77a511e09da8b372f56de79b4d282b1",
+    "docs/car-show-phase0/README.md": "ab3d4e0f863a5176ac6bdbeb20bed57fd99c80bb16d3ecb4c878a68055b2492a",
+    "docs/car-show-phase0/audit_legacy.py": "74046568ee037586b9fd1b7f67cbed88bc9b69512fdc33a0360fa7f2b37bac50",
+    "docs/car-show-phase0/AGENTS.md": "ec961ade8e193913f3c9ed9a0178528f0703134a05efb48768b2c890e56068ba",
+    "docs/car-show-phase0/schema-proposal.sql": "12b27a02113b5f974baeb6acd9d81a03ffda149c96f9503c2d692bb99a4f8614",
+    "docs/car-show-phase0/decisions.md": "c120923af816dc3c8ba2015c7f979f70a00bd3dabeafc03eef01f841a7392420"
+  }
+}

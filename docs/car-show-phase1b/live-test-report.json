@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "checks": [
+    "Initial Admin password authentication",
+    "Admin creates confirmed Judge and Admin; both authenticate immediately",
+    "Provisioning transport uses only POST /auth/v1/admin/users; no email endpoints",
+    "Anonymous table/contact enumeration and staff RPCs denied; unpublished public projection empty",
+    "Judge projections exclude contacts; metadata/role escalation, payment, user management, Quick Edit and direct history/totals denied",
+    "10 concurrent Lions Choice votes without a score row",
+    "Six concurrent sections atomic; strict input/zero/blank, trusted actor, retries and repeated history pass",
+    "Admin Quick Edit atomic audit, missing NULL, valid zero, progress, no downgrade, stale-edit refusal",
+    "Explicit public field allowlist and immutable event vehicle snapshots",
+    "Role change/deactivation block existing JWTs; Auth deletion retains attribution",
+    "Account response has no password/secret fields; application schema stores none"
+  ],
+  "regression": {
+    "counts": {
+      "events": 1,
+      "participants": 239,
+      "cars": 256,
+      "event_registrations": 256,
+      "scores": 71,
+      "score_history": 486
+    },
+    "fixture": {
+      "rows": 51,
+      "numeric_values": 204,
+      "differences": 0
+    },
+    "lions_choice_votes": 2,
+    "allocator": 257,
+    "exact_mapped_columns": true,
+    "all_generated_totals": true,
+    "rls_tables": 7,
+    "source_comparison": "Pinned literal source; native replay is a separate gate"
+  },
+  "temporary_data_removed": true
+}

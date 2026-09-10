@@ -1,0 +1,4 @@
+import { requireStaff } from '../../../../src/auth/session';
+import { awardsFor,registrations } from '../../../../src/workflows/data';
+import { statistics } from '../../../../src/workflows/types';
+export async function GET(request:Request){const {client}=await requireStaff(true);const id=new URL(request.url).searchParams.get('event');if(!id||!/^[0-9a-f-]{36}$/i.test(id))return Response.json({error:'Invalid event'},{status:400});const [awards,rows]=await Promise.all([awardsFor(client,id),registrations(client,id)]);const stats=statistics(rows);return Response.json({awards,stats,lions:rows.filter(r=>r.lions_choice_votes>0).sort((a,b)=>b.lions_choice_votes-a.lions_choice_votes).map(r=>({number:r.car_number,vehicle:`${r.vehicle_year} ${r.vehicle_make} ${r.vehicle_model}`,votes:r.lions_choice_votes})),updated:new Date().toISOString()},{headers:{'Cache-Control':'private, no-store'}});}

@@ -1,0 +1,21 @@
+{
+  "counts": {
+    "events": 1,
+    "participants": 239,
+    "cars": 256,
+    "event_registrations": 256,
+    "scores": 71,
+    "score_history": 486
+  },
+  "fixture": {
+    "rows": 51,
+    "numeric_values": 204,
+    "differences": 0
+  },
+  "lions_choice_votes": 2,
+  "allocator": 257,
+  "exact_mapped_columns": true,
+  "all_generated_totals": true,
+  "rls_tables": 7,
+  "source_comparison": "Pinned literal source; native replay is a separate gate"
+}
