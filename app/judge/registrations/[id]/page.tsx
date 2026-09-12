@@ -1,3 +1,5 @@
+import { requireStaff } from '../../../../src/auth/session';
+import { ReportFooter } from '../../../components/report-footer';
 import { ArrowLeft } from 'lucide-react';
 import { LionsLogo } from '../../../components/lions-logo';
 import Link from 'next/link';
@@ -16,8 +18,10 @@ import { voteLionsChoice } from '../../actions';
 import type { AppRole } from '../../../../src/auth/accounts';
 
 type PublicCar={id:string;car_number:string;vehicle_year:number;vehicle_make:string;vehicle_model:string;vehicle_color?:string|null;owner_name:string;owner_city:string|null;owner_state:string|null;event_name:string;event_year:number;historical:boolean;judging_open:boolean;progress:number;sections:Record<string,boolean>};
-export default async function JudgingDetail({params}:{params:Promise<{id:string}>}){
+export default async function JudgingDetail({params,searchParams}:{params:Promise<{id:string}>;searchParams:Promise<{entry?:string}>}){
  const {id}=await params;if(!/^[0-9a-f-]{36}$/i.test(id))notFound();
+ const entry=(await searchParams).entry;
+ if(entry==='judge')await requireStaff(false,`/judge/registrations/${id}?entry=judge`);
  const client=await sessionClient();
  const {data:{user}}=await client.auth.getUser();
  const profile=user?(await client.from('profiles').select('display_name,app_role,is_active').eq('id',user.id).single()).data:null;
@@ -39,6 +43,7 @@ export default async function JudgingDetail({params}:{params:Promise<{id:string}
   {editable&&<JudgingSheet registration={id} score={score} history={history} requests={Object.fromEntries(Object.keys(SECTIONS).map(s=>[s,crypto.randomUUID()]))}/>}
   {role&&!editable&&score&&<section className="section-space"><h2>Recorded scores</h2>{Object.entries(SECTIONS).map(([section,maxima])=><details className="card section-card" key={section}><summary>{sectionLabels[section as keyof typeof SECTIONS]}</summary><div className="score-fields">{Object.entries(maxima).map(([field,max])=><p key={field}>{label(field)}: <strong>{score?.[field]??'Incomplete'}</strong> / {max}</p>)}</div></details>)}</section>}
   {(role==='admin'||editable)&&<><section className="card section-space"><h2>Lions Choice</h2><p>{votes} votes · separate from judging scores.</p>{editable&&<ActionForm action={voteLionsChoice} submit="Add one Lions Choice vote"><input type="hidden" name="registration" value={id}/></ActionForm>}</section><section className="section-space"><h2>Submission history</h2><HistoryTable history={history}/></section></>}
+ <div className="home-footer judging-footer"><p><a href="https://www.zionsvillelions.com/">Zionsville Lions Club</a> · American Dream Car Show</p><ReportFooter/></div>
  </>;
  return role?<StaffShell role={role} name={profile!.display_name} eventOverride={{name:car.event_name,event_year:car.event_year,legacy_source_key:car.historical?'historical':null,judging_open:car.judging_open}}>{content}</StaffShell>:<><header className="site-header"><Link href="/" className="brand"><LionsLogo/><div>Lions Club <span>Dream Car Show</span></div></Link></header><main className="container workspace public-car-page">{content}</main></>;
 }

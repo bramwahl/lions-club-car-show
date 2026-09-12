@@ -451,3 +451,15 @@ select { background-image:url('/icons/chevron-down.svg'); }
 
 .auth-container .lions-logo { background:transparent; padding:0; }
 .auth-container .brand span { color:#407cca; }
+
+.app-sidebar .brand { justify-content:center; }
+.app-sidebar .brand .lions-logo { width:92px; height:92px; background:transparent; padding:0; }
+.judging-footer { margin-top:40px; }
+.car-tag-footer { margin-top:24px; border-top:1px solid #ddd; padding-top:12px; text-align:center; }
+.car-tag-footer>p { font-size:11px; margin-bottom:6px; }
+.car-tag-footer .report-credit { margin-top:0; }
+@media(max-width:760px){.app-sidebar .brand .lions-logo{width:54px;height:54px;}}
+
+.car-tag-footer { display:flex; justify-content:space-between; align-items:center; gap:16px; text-align:left; }
+.car-tag-footer>p { margin:0; }
+.car-tag-footer .report-credit { border:0; padding:0; margin:0 0 0 auto; }
