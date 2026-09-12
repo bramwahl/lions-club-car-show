@@ -420,3 +420,5 @@ select { background-image:url('/icons/chevron-down.svg'); }
 .account-dialog-header { display:flex; align-items:center; justify-content:space-between; gap:16px; }
 .account-dialog-header h2 { margin:0; }
 .account-dialog-header button { margin:0; display:inline-flex; padding:8px; }
+
+.account-dialog { margin:auto; }
