@@ -13,6 +13,10 @@ test('public registration gates access, reuses cars, directly registers new peop
  await db.exec('set role anon');
  const call=async(action:string,data:object={},key=secret)=>(await db.query('select public.registration_portal($1,$2,$3,$4) as result',[key,ip,action,JSON.stringify(data)])).rows[0].result as {error?:string;matched?:boolean;token?:string;participant:{name:string;city:string|null;state:string|null};cars:{id:string;year:number;make:string;model:string;registered:boolean}[];ok?:boolean;pending?:boolean};
  assert.ok((await call('event',{},'wrong')).error);
+ const candidates=(await db.query('select public.registration_portal($1,$2,$3,$4) result',[secret,ip,'lookup',JSON.stringify({name:'Person',contact:''})])).rows[0].result as {candidates:{token:string;participant:object}[]};
+ assert.equal(candidates.candidates.length,1);assert.deepEqual(Object.keys(candidates.candidates[0]).sort(),['participant','token','vehicles']);assert.deepEqual(Object.keys(candidates.candidates[0].participant).sort(),['city','name','state']);
+ assert.equal((await call('choose',{token:candidates.candidates[0].token})).cars[0].id,c);
+
  await assert.rejects(db.query('select * from public.participants'));await assert.rejects(db.query('select * from public.registration_requests'));await assert.rejects(db.query('select public.admin_registration_requests()'));
  assert.equal((await call('lookup',{name:'Returning Person',contact:'wrong@example.com'})).matched,false);
  assert.equal((await call('lookup',{name:'Person',contact:'family@example.test'})).matched,true);

@@ -75,3 +75,11 @@ The user subsequently approved direct registration for new participants (migrati
 ## September 12 event-day authorization
 
 The user approved raising public-registration limits for shared venue networks and Admin editing of staff email/password, plus local and live deployment. Migration 018 sets 300 operations per network and 1500 globally per rolling ten minutes; event-page reads remain exempt. Privileged Auth use now also permits freshly authorized Admin `updateUserById` for an existing staff account, with confirmed email and optional directly supplied password. No mail, password persistence/logging, role changes through metadata, or participant Auth accounts. Preserve all other access guards.
+
+## Vehicle color local revision
+
+User approved optional car color on registration/new-car entry, required color in the new single-car check-in flow, and public judging display of registration vehicle_color. Migration 019 is prepared for review only, not applied to the shared database. Current cars.color and event_registrations.vehicle_color are nullable with no backfill. Color snapshots never follow later current-car edits; 2025 color stays NULL. The existing four-argument arrival RPC remains for compatibility with the deployed client until rollout; the new five-argument RPC requires a nonblank color. Do not deploy the new client before migration 019 is applied.
+
+Migration 019 was subsequently approved and applied to the shared database for local UI testing. A pre-change backup was saved privately; all existing application records compared unchanged after excluding the new nullable columns. The color UI is still local-only pending deployment approval.
+
+The user approved live release of the color UI, limited candidate lookup with vehicle year/make/model labels, and simplified car tags. Migrations 019–021 are applied; preserve their checksums. Public lookup accepts an exact surname/full name, email or phone, returns at most five candidate names/cities/states and vehicle labels, and requires an opaque match token to select cars. Do not expose contacts, scores or Auth data. No participant deduplication is authorized.

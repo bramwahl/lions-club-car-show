@@ -12,3 +12,5 @@ export async function submitRegistration(data:Record<string,unknown>){
  }
  return portal('submit',data);
 }
+
+export async function chooseReturning(token:string){return portal('choose',{token});}

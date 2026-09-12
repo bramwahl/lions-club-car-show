@@ -200,7 +200,7 @@ input[type=checkbox] { accent-color:var(--lions-blue); }
 .dashboard-ranking th { background:#edf2fb; color:var(--lions-blue); }
 .sheet-brand { border-bottom:3px solid var(--lions-yellow); padding-bottom:16px; }
 .sheet-brand .lions-logo { margin:0 auto 8px; width:76px; height:76px; }
-.car-sheet .sheet-number { color:var(--lions-blue); }
+.car-sheet .sheet-number { color:#000; }
 @media(max-width:760px){.table-wrap td[data-label=Actions] a{background:#edf2fb;color:var(--lions-blue);}}
 @media print { .sheet-brand { border-bottom-color:#ebb700; } .lions-logo { print-color-adjust:exact; } }
 
@@ -422,3 +422,11 @@ select { background-image:url('/icons/chevron-down.svg'); }
 .account-dialog-header button { margin:0; display:inline-flex; padding:8px; }
 
 .account-dialog { margin:auto; }
+
+.candidate-none { margin-top:32px; }
+
+.registration-candidate { padding:24px 0; }
+.registration-candidate + .registration-candidate { border-top:1px solid #d7e1ef; }
+.registration-candidate > strong, .candidate-vehicles { font-size:1rem; }
+.candidate-vehicles { list-style:disc; padding-left:28px; margin:12px 0 24px; font-weight:400; }
+.candidate-vehicles li { margin:6px 0; }

@@ -14,7 +14,7 @@ test('public QR is a narrow projection; complete multi-section saves are atomic 
  await db.query("SELECT public.admin_arrival($1,$2,$3,'Paid')",[event,person,car]);
  await db.exec('SET ROLE anon');const projection=(await db.query('SELECT public.registration_progress($1) AS data',[reg])).rows[0].data as Record<string,unknown>;
  assert.equal(projection.owner_name,'Owner');assert.equal(projection.owner_city,'City');assert.equal(projection.owner_state,'IN');assert.equal(projection.car_number,'1');
- assert.deepEqual(Object.keys(projection).sort(),['id','car_number','vehicle_year','vehicle_make','vehicle_model','owner_name','owner_city','owner_state','event_name','event_year','historical','judging_open','progress','sections'].sort());assert.ok(!JSON.stringify(projection).includes('secret'));assert.ok(Object.values(projection.sections as object).every(v=>v===false));
+ assert.deepEqual(Object.keys(projection).sort(),['id','car_number','vehicle_year','vehicle_color','vehicle_make','vehicle_model','owner_name','owner_city','owner_state','event_name','event_year','historical','judging_open','progress','sections'].sort());assert.ok(!JSON.stringify(projection).includes('secret'));assert.ok(Object.values(projection.sections as object).every(v=>v===false));
  await assert.rejects(db.query('SELECT * FROM public.scores'),/permission denied/);await assert.rejects(db.query('SELECT public.submit_sections($1,$2)',[reg,[]]),/permission denied/);await db.exec('RESET ROLE');
  await db.query("UPDATE public.profiles SET app_role='judge' WHERE id=$1",[actor]);await db.exec('SET ROLE authenticated');
  const payload=[{section:'body_paint',values:SECTIONS.body_paint,request:randomUUID()},{section:'interior',values:{dash:0},request:randomUUID()}];

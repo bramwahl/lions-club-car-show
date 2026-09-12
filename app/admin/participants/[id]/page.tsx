@@ -40,7 +40,7 @@ export default async function ParticipantDetail({params}:{params:Promise<{id:str
      <h3>{car.year} {car.make} {car.model}</h3>
      <div className="badge-row"><StatusBadge value={reg?.status??'Not registered'}/>{reg&&<StatusBadge value={reg.payment_status}/>} {reg?.car_number&&<strong>Car #{reg.car_number}</strong>}</div>
      {event&&!event.legacy_source_key?<>
-      <VehicleRegistrationForm key={`${car.id}-${reg?.payment_status??'new'}`} event={event.id} year={event.event_year} participant={id} car={car.id} payment={reg?.payment_status??'Unpaid'} registered={!!reg} numbered={!!reg?.car_number}/>
+      <VehicleRegistrationForm color={reg?.vehicle_color??car.color} key={`${car.id}-${reg?.payment_status??'new'}`} event={event.id} year={event.event_year} participant={id} car={car.id} payment={reg?.payment_status??'Unpaid'} registered={!!reg} numbered={!!reg?.car_number}/>
       {reg&&<Link href={`/admin/registrations/${reg.id}`}>Registration details</Link>}
      </>:reg?<div className="actions"><Link className="button secondary" href={`/admin/registrations/${reg.id}`}>View historical registration</Link></div>:<p className="hint">{event?'Not registered for this historical event.':'Select an event to register this car.'}</p>}
      <details className="section-space"><summary>Edit saved vehicle</summary>{car.notes&&<p>{car.notes}</p>}<ActionForm action={saveCar} submit="Save vehicle"><CarFields participant={id} car={car}/></ActionForm><p className="hint">Editing the saved vehicle does not change existing event snapshots.</p></details>

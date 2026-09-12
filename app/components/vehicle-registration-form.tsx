@@ -1,8 +1,9 @@
 'use client';
+import { CarColorSelect } from './car-color-select';
 import { useActionState, useState } from 'react';
 import { submitVehicleRegistration } from '../admin/workflow-actions';
 
-export function VehicleRegistrationForm({event,year,participant,car,payment,registered,numbered}:{event:string;year:number;participant:string;car:string;payment:string;registered:boolean;numbered:boolean}){
+export function VehicleRegistrationForm({event,year,participant,car,payment,registered,numbered,color}:{event:string;year:number;participant:string;car:string;payment:string;color?:string|null;registered:boolean;numbered:boolean}){
  const [selectedPayment,setSelectedPayment]=useState(payment);
  const [state,action,pending]=useActionState(submitVehicleRegistration,{message:''});
  return <form action={action} className="stack">
@@ -11,7 +12,7 @@ export function VehicleRegistrationForm({event,year,participant,car,payment,regi
   <input type="hidden" name="car" value={car}/>
   <input type="hidden" name="cars" value={car}/>
   <input type="hidden" name="intent" value={registered?'payment':'register'}/>
-  <label>Payment for {year}<select name="payment" value={selectedPayment} onChange={e=>setSelectedPayment(e.target.value)} disabled={pending}><option>Unpaid</option><option>Paid</option></select></label>
+  <div className="grid"><CarColorSelect value={color}/><label>Payment for {year}<select name="payment" value={selectedPayment} onChange={e=>setSelectedPayment(e.target.value)} disabled={pending}><option>Unpaid</option><option>Paid</option></select></label></div>
   <p className="hint">Check-in saves this payment status and opens the QR car sheet.</p>
   <div className="actions">
    <button name="operation" value="check-in" disabled={pending}>{pending?'Saving…':numbered?'Save & open QR sheet':'Check in & open QR sheet'}</button>
