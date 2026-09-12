@@ -448,3 +448,6 @@ select { background-image:url('/icons/chevron-down.svg'); }
 
 .dashboard-donut { position:relative; }
 .donut-cap { position:absolute; width:9px; height:9px; border-radius:50%; transform:translate(-50%,-50%); pointer-events:none; }
+
+.auth-container .lions-logo { background:transparent; padding:0; }
+.auth-container .brand span { color:#407cca; }
