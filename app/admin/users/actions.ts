@@ -9,7 +9,7 @@ export async function createAccount(_previous:FormState,form:FormData):Promise<F
   let input;try {input=accountInput(form);} catch {return {message:'Use a valid email, name, role and a password of at least 12 characters (maximum 72 bytes).'};}
   try {
     await provisionAccount(privilegedAuth(),input,async id=>{
-      const {error}=await client.rpc('admin_set_account',{p_user_id:id,p_role:input.role,p_active:true,p_name:input.name});
+  const {error}=await client.rpc('admin_set_account',{p_user_id:id,p_role:input.role,p_active:true,p_name:input.name});
       if(error) throw new Error('Role assignment failed');
     });
   } catch(error) {return {message:error instanceof Error ? error.message : 'Account could not be created.'};}
@@ -19,19 +19,24 @@ export async function updateAccount(_previous:FormState,form:FormData):Promise<F
   const {client}=await requireStaff(true);
   const id=String(form.get('id')??'');const name=String(form.get('name')??'').trim();const role=form.get('role');
   if(!/^[0-9a-f-]{36}$/i.test(id)||name.length<2||name.length>80||(role!=='admin'&&role!=='judge')) return {message:'Invalid account fields.'};
+  const email=String(form.get('email')??'').trim();
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)||email.length>254)return {message:'Enter a valid email.'};
   const {error}=await client.rpc('admin_set_account',{p_user_id:id,p_role:role,p_active:form.get('active')==='on',p_name:name});
   if(error) return {message:error.code==='23514'?'Keep at least one active Admin.':'Account could not be updated.'};
-  revalidatePath('/admin/users');return {message:'Account access updated.',success:true};
+  const changed=await privilegedAuth().updateUserById(id,{email,email_confirm:true});
+  revalidatePath('/admin/users');
+  if(changed.error)return {message:'Name and access saved, but email could not be changed. Check whether that email is already used.'};
+  return {message:'Account updated. No email was sent.',success:true};
 }
 
 export async function updateCredentials(_previous:FormState,form:FormData):Promise<FormState> {
  const {client}=await requireStaff(true);
  const id=String(form.get('id')??'');
- const email=String(form.get('email')??'').trim(),password=String(form.get('password')??'');
- if(!/^[0-9a-f-]{36}$/i.test(id)||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)||email.length>254||(password&&(password.length<12||new TextEncoder().encode(password).length>72)))return {message:'Enter a valid email and a password of at least 12 characters (maximum 72 bytes), or leave password blank.'};
+ const password=String(form.get('password')??'');
+ if(!/^[0-9a-f-]{36}$/i.test(id)||password.length<12||new TextEncoder().encode(password).length>72)return {message:'Enter a password of at least 12 characters (maximum 72 bytes).'};
  const {data,error}=await client.rpc('admin_accounts');
  if(error||!data?.some((account:{id:string})=>account.id===id))return {message:'Staff account could not be verified.'};
- const result=await privilegedAuth().updateUserById(id,{email,email_confirm:true,...(password?{password}:{})});
+ const result=await privilegedAuth().updateUserById(id,{password});
  if(result.error)return {message:'Sign-in details could not be updated. Check whether the email is already used or the password meets requirements.'};
- revalidatePath('/admin/users');return {message:'Sign-in details updated. No email was sent. Share the new details directly with the user.',success:true};
+ revalidatePath('/admin/users');return {message:'Password updated. No email was sent. Share the new password directly with the user.',success:true};
 }

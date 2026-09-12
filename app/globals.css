@@ -411,3 +411,12 @@ select { background-image:url('/icons/chevron-down.svg'); }
 
 .tie-candidates .button { flex-wrap:wrap; justify-content:flex-start; }
 .tie-history-indicator { display:inline-flex; align-items:center; gap:6px; font-size:.8rem; color:#886900; background:#fff4c7; border-radius:6px; padding:4px 8px; }
+
+.users-toolbar { display:flex; justify-content:flex-end; margin:24px 0 16px; }
+.users-actions { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.users-actions button { margin:0; }
+.account-dialog { border:1px solid #d7e1ef; border-radius:12px; padding:24px; width:min(520px,calc(100vw - 32px)); max-height:90dvh; overflow:auto; color:var(--foreground,#0d2240); background:white; }
+.account-dialog::backdrop { background:rgb(13 34 64 / 55%); }
+.account-dialog-header { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.account-dialog-header h2 { margin:0; }
+.account-dialog-header button { margin:0; display:inline-flex; padding:8px; }
