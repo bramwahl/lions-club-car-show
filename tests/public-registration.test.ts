@@ -37,6 +37,6 @@ test('public registration gates access, reuses cars, directly registers new peop
  await db.exec('reset role');regs=(await db.query('select * from public.event_registrations')).rows;assert.equal(regs.length,3);assert.equal((await db.query('select * from public.cars')).rows.length,3);
  await db.query("update public.profiles set app_role='judge' where id=$1",[actor]);await db.exec('set role authenticated');await assert.rejects(db.query('select public.admin_registration_requests()'));await db.exec('reset role');
  await db.query("insert into public.participants(name,email,phone) values('Another Person','family@example.test','3175550123')");
- await db.exec('set role anon');assert.equal((await call('lookup',{name:'Person',contact:'3175550123'})).matched,false);assert.equal((await call('lookup',{name:'Person',contact:'family@example.test'})).matched,false);for(let i=0;i<25;i++)await call('lookup',{name:'Unknown Person',contact:'5555555555'});assert.ok((await call('lookup',{name:'Returning Person',contact:'3175550123'})).error);
+ await db.exec('set role anon');assert.equal((await call('lookup',{name:'Person',contact:'3175550123'})).matched,false);assert.equal((await call('lookup',{name:'Person',contact:'family@example.test'})).matched,false);for(let i=0;i<305;i++)await call('lookup',{name:'Unknown Person',contact:'5555555555'});assert.ok((await call('lookup',{name:'Returning Person',contact:'3175550123'})).error);
  }finally{await close();}
 });
