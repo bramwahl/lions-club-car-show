@@ -20,7 +20,7 @@ export default async function RegistrationDetail({params}:{params:Promise<{id:st
  const judgingUrl=`/judge/registrations/${id}`;
  const primary=needsCheckIn?{href:`/admin/check-in/${r.participant_id}`,label:'Check in car'}:
   {href:judgingUrl,label:historical?'View judging record':r.status==='Judged'?'Review judging':event.judging_open?'Judge car':'View judging record'};
- return <StaffShell role={profile.app_role} name={profile.display_name}>
+ return <StaffShell role={profile.app_role} name={profile.display_name} eventOverride={event}>
   <Link href="/admin/registrations"><ArrowLeft className="action-icon" size={18} strokeWidth={1.75} aria-hidden="true"/> Registrations</Link>
   <section className="registration-hero registration-summary" aria-label="Vehicle summary">
    <div className="registration-title-row"><span className={`car-number ${r.car_number?'':'unnumbered'}`}>{r.car_number?`#${r.car_number}`:'Pre-registered'}</span><h1>{r.vehicle_year} {r.vehicle_make} {r.vehicle_model}</h1></div>
