@@ -463,3 +463,147 @@ select { background-image:url('/icons/chevron-down.svg'); }
 .car-tag-footer { display:flex; justify-content:space-between; align-items:center; gap:16px; text-align:left; }
 .car-tag-footer>p { margin:0; }
 .car-tag-footer .report-credit { border:0; padding:0; margin:0 0 0 auto; }
+
+/* Full score report shares dashboard metrics without navigation actions. */
+.report-charts .chart-action { display:none; }
+.full-score-report .report-note { font-size:13px; line-height:1.5; }
+.full-score-report .dashboard-charts { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.full-score-report .dashboard-chart-body { flex-wrap:wrap; }
+@media(max-width:760px) {
+ .full-score-report .dashboard-charts { grid-template-columns:1fr; }
+}
+@media print {
+ .full-score-report .report-note { font-size:9pt; }
+ .full-score-report .dashboard-charts { grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+ .full-score-report .dashboard-chart-body { gap:10px; flex-wrap:nowrap; }
+ .full-score-report .dashboard-chart-body strong { font-size:18pt; }
+ .full-score-report .card { padding:12px; margin-top:12px; break-inside:avoid; }
+ .full-score-report .dashboard-charts .card { margin-top:0; }
+ .full-score-report .dashboard-car-mix { margin:10px 0; }
+ .full-score-report .dashboard-car-mix strong { font-size:20pt; }
+ .full-score-report .hint { font-size:9pt; line-height:1.4; }
+ .full-score-report .dashboard-donut,
+ .full-score-report .dashboard-donut *,
+ .full-score-report .attendance-meter * { print-color-adjust:exact; -webkit-print-color-adjust:exact; }
+ .full-score-report .report-rankings { break-before:page; break-inside:avoid; }
+ .full-score-report .report-judges { columns:2; }
+}
+
+.full-score-report .recap-box {
+ border:1px solid var(--border, #dce3ed);
+ border-radius:16px;
+ padding:24px;
+ background:white;
+}
+.full-score-report .recap-heading .lions-logo { width:120px; height:120px; flex-shrink:0; }
+.full-score-report .recap-heading h1 { font-size:28px; }
+.full-score-report .report-cover { display:flex; flex-direction:column; gap:24px; }
+.full-score-report .report-cover > * { margin-top:0; margin-bottom:0; }
+.full-score-report .report-rankings { gap:24px; }
+.full-score-report .recap-box h2 { margin-top:0; }
+.full-score-report .report-score-section { display:flex; flex-direction:column; gap:24px; }
+.full-score-report .report-score-section > * { margin-top:0; margin-bottom:0; }
+.full-score-report .recap-score-box { overflow-x:auto; }
+@media print {
+ .full-score-report .recap-heading .lions-logo { width:100px; height:100px; }
+ .full-score-report .recap-heading h1 { font-size:22pt; }
+ .full-score-report .recap-box { padding:16px; }
+ .full-score-report .recap-score-box { overflow:visible; }
+ .full-score-report .recap-event-details,
+ .full-score-report .recap-judges-box { break-inside:avoid; }
+ .full-score-report .report-cover > .card { margin:0; }
+}
+
+.full-score-report .recap-heading .recap-club { font-size:16px; font-weight:700; letter-spacing:.1em; margin:0 0 8px; }
+.full-score-report .recap-heading .recap-subtitle { font-size:26px; color:#407cca; margin:10px 0 0; }
+.full-score-report .report-comparisons { display:flex; flex-direction:column; gap:24px; padding:32px; background:white; margin:24px 0; }
+.full-score-report .report-comparisons > * { margin:0; }
+@media print {
+ .full-score-report .report-cover,
+ .full-score-report .report-comparisons { display:block; padding:0; margin:0; break-after:page; }
+ .full-score-report .report-cover > *,
+ .full-score-report .report-comparisons > * { margin:0 0 16px; }
+ .full-score-report .report-rankings { break-before:auto; gap:16px; }
+ .full-score-report .report-comparisons .card { margin:0 0 16px; padding:12px; }
+ .full-score-report .report-comparisons h2 { margin:0 0 8px; }
+ .full-score-report .report-comparisons .hint { margin:6px 0 0; font-size:8pt; }
+ .full-score-report .report-comparisons .dashboard-car-mix { margin:8px 0; }
+ .full-score-report .report-comparisons .recap-box { padding:12px; }
+ .full-score-report .recap-heading .recap-club { font-size:12pt; }
+ .full-score-report .recap-heading .recap-subtitle { font-size:20pt; }
+ .full-score-report .report-score-section { display:block; }
+ .full-score-report .report-score-section > * { margin-bottom:16px; }
+}
+
+.full-score-report .report-credit { flex-direction:row-reverse; }
+.full-score-report .recap-heading h1 { margin:0; line-height:1.15; }
+.full-score-report .recap-heading .recap-club { margin:0 0 4px; }
+.full-score-report .recap-heading .recap-subtitle { font-size:22px; margin:6px 0 0; line-height:1.2; }
+@media print {
+ @page fullscores {
+  margin:.5in .4in .65in;
+  @bottom-center {
+   content:"Page " counter(page) " of " counter(pages);
+   font:9pt "Helvetica Neue", Arial, sans-serif;
+   color:#656868;
+  }
+ }
+ .full-score-report .recap-heading .recap-subtitle { font-size:17pt; }
+ .full-score-report > section > .report-credit { display:none; }
+}
+
+.full-score-report .report-judges { columns:1; }
+@media print {
+ /* Keep the repeated footer inside the printable page, clear of flowing content. */
+ @page fullscores { margin-bottom:.85in; }
+ .full-score-report .report-judges { columns:1; }
+}
+
+.recap-print-brand { display:none; }
+@media print {
+ .full-score-report .recap-print-brand {
+  display:block;
+  position:fixed;
+  bottom:0;
+  right:0;
+  height:24px;
+  background:white;
+  z-index:10;
+ }
+ .full-score-report .recap-print-brand .report-credit {
+  display:flex;
+  margin:0;
+  padding:0;
+  border:0;
+  height:24px;
+ }
+ .full-score-report .recap-print-brand svg { display:block; }
+ .full-score-report .report-cover,
+ .full-score-report .report-comparisons,
+ .full-score-report .report-score-section { padding-bottom:32px; }
+}
+
+@media print {
+ .full-score-report .recap-print-brand {
+  height:20px;
+  /* Align its center with the center of the .85in bottom margin. */
+  transform:translateY(calc(.425in + 10px));
+ }
+ .full-score-report .recap-print-brand .report-credit { height:20px; }
+ .full-score-report .recap-print-brand .bram-credit,
+ .full-score-report .recap-print-brand .bram-credit strong { font-size:10px; }
+ .full-score-report .recap-print-brand .bram-credit { gap:7px; }
+ .full-score-report .recap-print-brand svg { width:13px; height:16px; }
+}
+
+@font-face { font-family:"Bram Footer Mark"; src:url("/brand/bram-footer-mark.ttf") format("truetype"); font-display:block; }
+.recap-font-preload { font-family:"Bram Footer Mark"; position:absolute; opacity:0; pointer-events:none; }
+@media print { .recap-font-preload { display:none; } }
+
+@media print {
+ @page fullscores {
+  @bottom-left { border-top:1px solid rgba(64,124,202,.5); }
+  @bottom-center { border-top:1px solid rgba(64,124,202,.5); }
+  @bottom-right { border-top:1px solid rgba(64,124,202,.5); }
+ }
+}
