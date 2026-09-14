@@ -20,7 +20,7 @@ export function phpNumericCompare(a: number | null, b: number | null): number {
 /** Input MUST be the unmodified result of ORDER BY total_score DESC NULLS LAST.
  * No initial re-sort or hidden tie key: preserve the database's observed tie order.
  */
-export function calculateAwards(orderedInput: readonly AwardInput[]): Award[] {
+export function calculateAwards(orderedInput: readonly AwardInput[], skips: readonly {car_id:string;award:string}[] = []): Award[] {
   const remaining = orderedInput.map(row => ({ ...row }));
   if (new Set(remaining.map(row => row.car_id)).size !== remaining.length) throw new Error('Duplicate car in award input');
   const awards: Award[] = [];
@@ -29,14 +29,18 @@ export function calculateAwards(orderedInput: readonly AwardInput[]): Award[] {
     awards.push({ ...row, award, car_number_display: row.car_number + (star ? '*' : '') });
   };
   if (!remaining.length) return awards;
-  take(0, 'Best in Show');
+  const allowed=(car:AwardInput,award:string)=>!skips.some(s=>s.car_id===car.car_id&&s.award===award);
+  const best=remaining.findIndex(car=>allowed(car,'Best in Show'));
+  if(best>=0)take(best, 'Best in Show');
   for (const label of CLASSES) {
-    const index = remaining.findIndex(row => classification(row.vehicle_year) === label);
+    const index = remaining.findIndex(row => classification(row.vehicle_year) === label && allowed(row, `Best in Class: ${label}`));
     if (index >= 0) take(index, `Best in Class: ${label}`);
   }
   for (const [name, field] of [['Paint', 'overall_paint'], ['Interior', 'overall_interior'], ['Engine', 'overall_engine']] as const) {
     remaining.sort((a, b) => phpNumericCompare(b[field], a[field]));
-    if (remaining.length) take(0, `Best in Category: ${name}`, remaining.slice(1).some(row => phpNumericCompare(row[field], remaining[0][field]) === 0));
+    const award=`Best in Category: ${name}`;
+    const index=remaining.findIndex(row=>allowed(row,award));
+    if(index>=0)take(index,award,remaining.some((row,i)=>i!==index&&allowed(row,award)&&phpNumericCompare(row[field],remaining[index][field])===0));
   }
   remaining.sort((a, b) => phpNumericCompare(b.total_score, a.total_score));
   for (let rank = 1; remaining.length && rank <= 40; rank++) take(0, `Top 40: ${rank}`);

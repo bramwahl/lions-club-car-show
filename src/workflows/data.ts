@@ -1,3 +1,4 @@
+import {localLeftIds,localAwardSkips} from './local-exclusions';
 import 'server-only';
 import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
@@ -20,7 +21,7 @@ export async function registrationDetail(client:SupabaseClient,id:string,include
  if(includeHistory&&registration.score){for(let offset=0;;offset+=500){const res=await client.from('score_history').select('*').eq('score_id',registration.score.id).order('legacy_timestamp',{ascending:false,nullsFirst:false}).order('submitted_at',{ascending:false,nullsFirst:false}).range(offset,offset+499);if(res.error)throw new Error('History could not be loaded');history.push(...res.data as History[]);if(res.data.length<500)break;}}
  return {event,registration,history};
 }
-export async function awardsFor(client:SupabaseClient,event:string){return calculateAwards(await rpc<AwardInput[]>(client,'admin_award_inputs',{p_event:event}));}
+export async function awardsFor(client:SupabaseClient,event:string){return calculateAwards(await localAwardInputs(client,event),await localAwardSkips(event));}
 
 // Admin session and existing RLS only; pagination avoids truncating event history.
 export async function priorRegistrations(client:SupabaseClient,eventIds:string[]){
@@ -30,4 +31,21 @@ export async function priorRegistrations(client:SupabaseClient,eventIds:string[]
   if(error)throw new Error('Event history could not be loaded. Please try again.');
   rows.push(...data);if(data.length<500)break;
  }}return rows;
+}
+
+export async function judgingVisits(client:SupabaseClient,rows:Registration[]){
+ const ids=rows.filter(r=>['Checked-in','Judged'].includes(r.status??'')&&r.score&&Number(r.score.progress_percentage)<100).map(r=>r.score!.id);
+ const visits:{score_id:string;judge_name_snapshot:string|null}[]=[];
+ for(let start=0;start<ids.length;start+=100)for(let offset=0;;offset+=500){
+ const {data,error}=await client.from('score_history').select('score_id,judge_name_snapshot').in('score_id',ids.slice(start,start+100)).eq('action_type','section_submission').order('id').range(offset,offset+499);
+ if(error)throw new Error('Missing sections check could not be loaded.');
+ visits.push(...data);if(data.length<500)break;
+ }return visits;
+}
+
+export async function localAwardInputs(client:SupabaseClient,event:string){
+ const inputs=await rpc<AwardInput[]>(client,'admin_award_inputs',{p_event:event});
+ const ids=await localLeftIds();if(!ids.length)return inputs;
+ const excluded=new Set((await registrations(client,event)).filter(r=>ids.includes(r.id)).map(r=>r.car_id));
+ return inputs.filter(r=>!excluded.has(r.car_id));
 }

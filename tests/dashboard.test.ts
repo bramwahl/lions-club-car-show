@@ -17,3 +17,11 @@ test('earlier events never use future years or arbitrary same-year ordering',()=
  assert.equal(earlierEvent(e(2026,null),e(2026,null)),false);
  assert.equal(earlierEvent(e(2026,'2026-05-01'),e(2026,'2026-09-01')),true);
 });
+test('judging completion counts zero, excludes missing and invalid fields, and only counts attendees',()=>{
+ const row=(status:string,score:unknown)=>({status,score,vehicle_make:'Ford',participant:{city:'Zionsville',state:'IN'}} as Registration);
+ const result=dashboardInsights([row('Checked-in',{coverage:0,quality:20,engine_bay:null,original:6}),row('Judged',{plating_brass:10}),row('Checked-in',null),row('Registered',{coverage:15}),row('Archived',{coverage:15})],[],false);
+ assert.equal(result.judging.complete,3);
+ assert.equal(result.judging.total,51);
+ assert.deepEqual(result.judging.sections[0],{section:'body_paint',complete:2,total:12});
+ assert.equal(dashboardInsights([],[],false).judging.total,0);
+});
