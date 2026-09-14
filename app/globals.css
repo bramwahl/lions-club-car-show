@@ -675,3 +675,20 @@ select { background-image:url('/icons/chevron-down.svg'); }
  .no-show-followup-table th:nth-child(5) { width:28%; }
  .no-show-followup-table th:nth-child(6) { width:15%; }
 }
+
+.bump-indicator { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-top:12px; }
+.bump-indicator button { padding:4px 8px; min-height:32px; }
+
+.bump-indicator { width:100%; }
+.bump-indicator button { margin-left:auto; flex-shrink:0; }
+
+.adjustment-summary { list-style:none; padding:0; margin:16px 0 0; }
+.adjustment-summary li { padding:16px 0; }
+.adjustment-summary li + li { border-top:1px solid var(--border); }
+.adjustment-car { display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
+.adjustment-car button { min-height:32px; padding:4px 8px; }
+.adjustment-summary .adjustment-transition { color:#886900; margin:8px 0 0; font-size:.85rem; font-weight:600; }
+
+.adjustment-move { display:flex; align-items:center; flex-wrap:wrap; gap:12px; margin-top:8px; }
+.adjustment-summary .adjustment-move .adjustment-transition { margin:0; }
+.adjustment-move button { min-height:32px; padding:4px 8px; }
